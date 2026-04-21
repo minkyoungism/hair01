@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>고급스러워 보이는 헤어스타일 기준 | 민경이즘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple:      #7B5EA7;
+      --purple-light:#A78BCC;
+      --purple-bg:   #EDE8F7;
+      --purple-pale: #F5F1FB;
+      --beige:       #FAF7F4;
+      --beige-dark:  #F0EAE2;
+      --text:        #2D2D2D;
+      --text-sub:    #666;
+      --white:       #FFFFFF;
+      --shadow:      0 4px 20px rgba(123,94,167,.12);
+      --radius:      18px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--beige);
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(145deg, #ede8f7 0%, #f5f0fb 50%, #faf7f4 100%);
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123,94,167,.08) 0%, transparent 70%);
+      top: -100px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      padding: 5px 16px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 42px);
+      font-weight: 900;
+      line-height: 1.3;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .hero h1 em { color: var(--purple); font-style: normal; }
+    .hero .sub {
+      font-size: 15px;
+      color: var(--text-sub);
+      margin-bottom: 32px;
+    }
+    .author-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border-radius: 100px;
+      padding: 10px 20px;
+      box-shadow: var(--shadow);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .author-chip .dot {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple-light), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 16px;
+    }
+
+    /* ── LAYOUT ───────────────────────────────────── */
+    .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+    section { padding: 56px 0 0; }
+    section:last-of-type { padding-bottom: 80px; }
+
+    /* ── SECTION TITLE ────────────────────────────── */
+    .sec-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--purple);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .sec-label::before {
+      content: '';
+      display: block;
+      width: 18px; height: 2px;
+      background: var(--purple);
+      border-radius: 2px;
+    }
+    .sec-title {
+      font-size: clamp(20px, 3.5vw, 28px);
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+    .sec-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 32px;
+    }
+
+    /* ── CARD ─────────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    /* ── COMPARE CARD ─────────────────────────────── */
+    .compare-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 500px) { .compare-wrap { grid-template-columns: 1fr; } }
+
+    .compare-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      box-shadow: var(--shadow);
+    }
+    .compare-card .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .compare-card.bad  .tag { background: #e8e8e8; color: #555; }
+    .compare-card.good .tag { background: var(--purple); color: #fff; }
+    .compare-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .compare-card li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; font-weight: 500;
+    }
+    .compare-card li .icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0; margin-top: 1px;
+    }
+    .compare-card.bad  li .icon { background: #f0f0f0; color: #999; }
+    .compare-card.good li .icon { background: var(--purple-bg); color: var(--purple); }
+
+    /* ── IMAGE BLOCK ──────────────────────────────── */
+    .img-block {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+    .img-block img { width: 100%; display: block; }
+
+    /* ── TARGET LIST ──────────────────────────────── */
+    .target-list {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-top: 16px;
+    }
+    .target-item {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--purple-pale);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 14px; font-weight: 500;
+    }
+    .target-item .num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+
+    /* ── 3 ELEMENTS ───────────────────────────────── */
+    .elements-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 520px) { .elements-grid { grid-template-columns: 1fr; } }
+
+    .elem-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 18px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      border-top: 4px solid var(--purple);
+    }
+    .elem-card .num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      font-size: 15px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .elem-card .eng {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em;
+      color: var(--purple); text-transform: uppercase; margin-bottom: 4px;
+    }
+    .elem-card .kor {
+      font-size: 14px; font-weight: 700; color: var(--text);
+    }
+
+    /* ── PROBLEM BLOCK ────────────────────────────── */
+    .prob-block {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .prob-block .prob-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px;
+    }
+    .prob-block .step-badge {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; flex-shrink: 0;
+    }
+    .prob-block .prob-title { font-size: 17px; font-weight: 800; }
+    .prob-block .prob-sub   { font-size: 13px; color: var(--text-sub); }
+
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .checklist li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 14px; padding: 12px 14px;
+      background: var(--beige); border-radius: 10px;
+    }
+    .checklist li::before {
+      content: '✓';
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--purple-bg); color: var(--purple);
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    .summary-quote {
+      background: var(--purple-bg);
+      border-left: 4px solid var(--purple);
+      border-radius: 0 12px 12px 0;
+      padding: 14px 18px;
+      font-size: 14px; font-weight: 700;
+      color: var(--purple);
+    }
+
+    .bad-patterns { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .bad-item {
+      display: flex; gap: 10px; align-items: center;
+      font-size: 14px; padding: 10px 14px;
+      background: #fff5f5; border-radius: 10px;
+      color: #c0392b;
+    }
+    .bad-item::before { content: '✕'; font-weight: 800; font-size: 13px; }
+
+    /* ── RELATION BOX ─────────────────────────────── */
+    .relation-box {
+      background: linear-gradient(135deg, var(--purple-bg) 0%, var(--purple-pale) 100%);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .relation-box p { font-size: 15px; font-weight: 500; line-height: 1.9; color: var(--text); }
+    .relation-box strong { color: var(--purple); font-weight: 800; }
+    .relation-box .conclusion {
+      margin-top: 20px;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 14px; font-weight: 700;
+      color: var(--purple);
+      box-shadow: 0 2px 10px rgba(123,94,167,.1);
+    }
+
+    /* ── FORMULA BOX ──────────────────────────────── */
+    .formula-box {
+      background: var(--purple);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .formula-box .f-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .15em;
+      text-transform: uppercase; opacity: .75; margin-bottom: 14px;
+    }
+    .formula-box .f-eq {
+      font-size: clamp(15px, 3vw, 19px);
+      font-weight: 800;
+      line-height: 1.8;
+    }
+    .formula-box .f-eq span { opacity: .65; font-size: .85em; }
+
+    .point-list { display: flex; flex-direction: column; gap: 12px; }
+    .point-item {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 20px 20px;
+      box-shadow: var(--shadow);
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .point-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--purple-bg); color: var(--purple);
+      font-size: 14px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .point-content .point-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .point-content .point-desc  { font-size: 13px; color: var(--text-sub); }
+
+    /* ── CLOSING ──────────────────────────────────── */
+    .closing {
+      background: linear-gradient(145deg, #ede8f7, #faf7f4);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      text-align: center;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+    }
+    .closing p { font-size: 15px; font-weight: 500; line-height: 1.9; color: var(--text); }
+    .closing .author-note {
+      margin-top: 20px;
+      font-size: 13px; color: var(--text-sub);
+      font-style: italic;
+    }
+
+    /* ── CTA LINKS ────────────────────────────────── */
+    .cta-links { display: flex; flex-direction: column; gap: 12px; }
+    .cta-btn {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--white);
+      border-radius: 14px;
+      padding: 18px 22px;
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      font-size: 14px; font-weight: 600;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(123,94,167,.18); }
+    .cta-btn .icon-box {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--purple-bg); color: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .cta-btn .arrow { margin-left: auto; color: var(--purple-light); }
+
+    /* ── DIVIDER ──────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--beige-dark), transparent);
+      margin: 40px 0 0;
+    }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 12px; color: #aaa;
+      background: var(--white);
+      margin-top: 56px;
+    }
+    footer strong { color: var(--purple); }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">HAIR DESIGN GUIDE</div>
+    <h1>고급스러워 보이는<br /><em>헤어스타일</em>의 기준</h1>
+    <p class="sub">같은 머리인데 완성도가 달라 보이는 진짜 이유</p>
+    <div class="author-chip">
+      <div class="dot">✦</div>
+      <span>25년차 현장 전문 미용교수 · <strong>민경이즘</strong></span>
+    </div>
+    <div style="margin-top:16px;">
+      <a href="https://www.instagram.com/minkyoungism" target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:10px;background:#fff;border-radius:100px;padding:10px 22px;text-decoration:none;color:#2D2D2D;box-shadow:0 4px 20px rgba(123,94,167,.12);font-size:14px;font-weight:600;transition:transform .15s;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/>
+            <stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/>
+            <stop offset="100%" stop-color="#bc1888"/>
+          </linearGradient></defs>
+          <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#ig)"/>
+          <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none"/>
+          <circle cx="17.2" cy="6.8" r="1.2" fill="white"/>
+        </svg>
+        인스타그램 바로가기
+      </a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: INTRO / COMPARE -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Overview</div>
+      <h2 class="sec-title">같은 머리인데 분위기가<br />달라 보이는 이유</h2>
+      <p class="sec-desc">스타일 종류의 차이가 아니라, <strong>헤어 디자인 요소의 균형</strong>에서 만들어집니다.</p>
+
+      <div class="compare-wrap">
+        <div class="compare-card bad">
+          <span class="tag">평범해 보이는 헤어</span>
+          <ul>
+            <li><span class="icon">✕</span>볼륨이 죽어 밋밋</li>
+            <li><span class="icon">✕</span>헤어라인이 지저분</li>
+            <li><span class="icon">✕</span>질감이 무겁고 답답</li>
+          </ul>
+        </div>
+        <div class="compare-card good">
+          <span class="tag">고급스러워 보이는 헤어</span>
+          <ul>
+            <li><span class="icon">✓</span>볼륨 위치가 살아 입체적</li>
+            <li><span class="icon">✓</span>헤어라인이 정돈되어 깔끔</li>
+            <li><span class="icon">✓</span>질감이 가볍고 유연함</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <p style="font-size:14px; font-weight:600; margin-bottom:12px; color:var(--purple)">이런 분께 특히 도움이 됩니다</p>
+        <div class="target-list">
+          <div class="target-item"><div class="num">1</div>같은 스타일인데 결과가 다른 이유가 궁금한 미용인</div>
+          <div class="target-item"><div class="num">2</div>머리를 해도 "뭔가 부족하다"고 느끼는 분</div>
+          <div class="target-item"><div class="num">3</div>고급스러운 헤어스타일의 핵심 기준만 빠르게 정리하고 싶은 분</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 2: 3 ELEMENTS -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Core Concept</div>
+      <h2 class="sec-title">헤어 디자인 3요소</h2>
+      <p class="sec-desc">헤어스타일은 길이·컬·스타일만으로 완성되지 않습니다.<br />미용 현장에서 디자인할 때 이 3가지를 함께 봅니다.</p>
+
+      <div class="elements-grid" style="margin-bottom:20px;">
+        <div class="elem-card">
+          <div class="num">1</div>
+          <div class="eng">Volume</div>
+          <div class="kor">볼륨의 위치</div>
+        </div>
+        <div class="elem-card">
+          <div class="num">2</div>
+          <div class="eng">Line</div>
+          <div class="kor">라인의 정돈</div>
+        </div>
+        <div class="elem-card">
+          <div class="num">3</div>
+          <div class="eng">Texture</div>
+          <div class="kor">질감의 균형</div>
+        </div>
+      </div>
+
+      <!-- 트라이앵글 다이어그램 -->
+      <div style="background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:36px 24px 28px;margin-bottom:16px;text-align:center;">
+        <!-- Volume (top) -->
+        <div style="display:inline-flex;flex-direction:column;align-items:center;margin-bottom:8px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:8px;">≈</div>
+          <div style="background:var(--purple);color:#fff;border-radius:100px;padding:6px 18px;font-size:12px;font-weight:700;letter-spacing:.06em;">VOLUME</div>
+          <div style="font-size:13px;color:var(--text-sub);margin-top:4px;font-weight:500;">볼륨의 위치</div>
+        </div>
+        <!-- connector line down -->
+        <div style="width:2px;height:28px;background:linear-gradient(to bottom,var(--purple),var(--purple-light));margin:0 auto;opacity:.4;"></div>
+        <!-- center circle -->
+        <div style="position:relative;display:flex;justify-content:center;margin:0 auto 0;width:min(320px,100%);">
+          <div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--purple-bg),var(--purple-pale));border:3px solid var(--purple-light);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:2;">
+            <div style="font-size:22px;">✦</div>
+            <div style="font-size:10px;font-weight:700;color:var(--purple);letter-spacing:.05em;">DESIGN</div>
+          </div>
+          <!-- left connector -->
+          <div style="position:absolute;left:0;top:50%;width:calc(50% - 48px);height:2px;background:linear-gradient(to right,var(--purple-light),var(--purple));opacity:.4;transform:translateY(-50%);"></div>
+          <!-- right connector -->
+          <div style="position:absolute;right:0;top:50%;width:calc(50% - 48px);height:2px;background:linear-gradient(to left,var(--purple-light),var(--purple));opacity:.4;transform:translateY(-50%);"></div>
+        </div>
+        <!-- bottom row -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px;gap:8px;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:8px;">)</div>
+            <div style="background:var(--purple);color:#fff;border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;">LINE</div>
+            <div style="font-size:12px;color:var(--text-sub);margin-top:4px;font-weight:500;">헤어라인의 정돈</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:8px;">≈</div>
+            <div style="background:var(--purple);color:#fff;border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;">TEXTURE</div>
+            <div style="font-size:12px;color:var(--text-sub);margin-top:4px;font-weight:500;">질감의 균형</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="text-align:center; padding:24px 20px;">
+        <p style="font-size:15px; font-weight:500; line-height:1.9;">
+          이 세 가지가 <strong style="color:var(--purple)">얼굴형·두상·이미지와 조화를 이루면</strong>,<br />
+          같은 스타일이라도 훨씬 세련되고 완성도 있어 보입니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 3: TOP 3 PROBLEMS -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Common Mistakes</div>
+      <h2 class="sec-title">고급스러움을 방해하는<br />대표 패턴 TOP 3</h2>
+      <p class="sec-desc">어디서 무너지는지 알면, 개선 방향이 바로 보입니다.</p>
+
+      <!-- Problem 1 -->
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">1</div>
+          <div>
+            <div class="prob-title">볼륨 중심이 맞지 않는 경우</div>
+            <div class="prob-sub">Volume Position Mismatch</div>
+          </div>
+        </div>
+
+        <!-- 볼륨 위치 다이어그램 -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+          <div style="background:var(--beige);border-radius:14px;padding:16px 12px;text-align:center;">
+            <div style="font-size:28px;margin-bottom:6px;">↑</div>
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--purple-bg);border:2px dashed var(--purple);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:20px;">👤</div>
+            <div style="font-size:11px;font-weight:700;color:var(--purple);">정수리</div>
+            <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">입체감 UP</div>
+          </div>
+          <div style="background:var(--beige);border-radius:14px;padding:16px 12px;text-align:center;border:2px solid var(--purple);">
+            <div style="font-size:28px;margin-bottom:6px;">↗↖</div>
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--purple-bg);border:2px dashed var(--purple);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:20px;">👤</div>
+            <div style="font-size:11px;font-weight:700;color:var(--purple);">사이드</div>
+            <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">얼굴 좁아 보임</div>
+          </div>
+          <div style="background:var(--beige);border-radius:14px;padding:16px 12px;text-align:center;">
+            <div style="font-size:28px;margin-bottom:6px;">↓</div>
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--purple-bg);border:2px dashed var(--purple);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:20px;">👤</div>
+            <div style="font-size:11px;font-weight:700;color:var(--purple);">아랫쪽</div>
+            <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">무거워 보임</div>
+          </div>
+        </div>
+
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          볼륨이 얼굴형·두상 비율과 맞지 않는 위치에 생기면 얼굴이 커 보이거나,
+          스타일이 낡고 무거워 보일 수 있습니다.
+        </p>
+
+        <p style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px;">✦ 체크 기준</p>
+        <ul class="checklist">
+          <li>볼륨의 <strong>'양'</strong>이 아니라 <strong>'위치'</strong>를 먼저 본다</li>
+          <li>정수리 · 사이드 · 아랫쪽 중 어디가 가장 부피가 있는지 확인한다</li>
+        </ul>
+
+        <div class="summary-quote">볼륨은 '양'이 아니라 '위치'가 디자인을 결정한다</div>
+      </div>
+
+      <!-- Problem 2 -->
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">2</div>
+          <div>
+            <div class="prob-title">라인이 정돈되지 않은 경우</div>
+            <div class="prob-sub">Line & Silhouette</div>
+          </div>
+        </div>
+
+        <!-- 헤어라인 정돈 3단계 -->
+        <div style="display:flex;align-items:stretch;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:80px;background:#f5f5f5;border-radius:14px;padding:16px 12px;text-align:center;">
+            <div style="width:46px;height:46px;border-radius:50%;background:#e0e0e0;border:2px dashed #bbb;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:18px;">👤</div>
+            <div style="font-size:11px;font-weight:700;color:#888;">BEFORE</div>
+            <div style="font-size:11px;color:#aaa;margin-top:4px;">헤어라인<br/>지저분</div>
+          </div>
+          <div style="display:flex;align-items:center;color:var(--purple);font-size:20px;font-weight:700;padding:0 2px;">→</div>
+          <div style="flex:1;min-width:80px;background:var(--purple-bg);border-radius:14px;padding:16px 12px;text-align:center;border:2px dashed var(--purple-light);">
+            <div style="width:46px;height:46px;border-radius:50%;background:var(--purple-bg);border:2px dashed var(--purple);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:18px;">✂️</div>
+            <div style="font-size:11px;font-weight:700;color:var(--purple);">귀 주변 정리</div>
+            <div style="font-size:11px;color:var(--text-sub);margin-top:4px;">사이드 라인<br/>다듬기</div>
+          </div>
+          <div style="display:flex;align-items:center;color:var(--purple);font-size:20px;font-weight:700;padding:0 2px;">→</div>
+          <div style="flex:1;min-width:80px;background:var(--purple);border-radius:14px;padding:16px 12px;text-align:center;">
+            <div style="width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:18px;">✨</div>
+            <div style="font-size:11px;font-weight:700;color:#fff;">AFTER</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.8);margin-top:4px;">깔끔하고<br/>고급스러움</div>
+          </div>
+        </div>
+
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          헤어에서 라인은 전체 실루엣과 인상을 만들어내는 골격입니다.
+          라인이 흐릿하거나 정리되지 않으면, 같은 컬·같은 기장이라도 완성도가 크게 떨어져 보입니다.
+        </p>
+
+        <p style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px;">✦ 특히 중요한 3구역</p>
+        <ul class="checklist">
+          <li>이마 라인 — 앞머리와 얼굴의 경계가 깔끔한지</li>
+          <li>귀 주변 라인 — 사이드의 흐름이 자연스러운지</li>
+          <li>목선 라인 — 뒷머리 마무리가 정돈되어 있는지</li>
+        </ul>
+
+        <div class="summary-quote">고급스러움은 결국 '라인 디테일'에서 결정된다</div>
+      </div>
+
+      <!-- Problem 3 -->
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">3</div>
+          <div>
+            <div class="prob-title">질감 균형이 맞지 않는 경우</div>
+            <div class="prob-sub">Texture Balance</div>
+          </div>
+        </div>
+
+        <!-- 질감 균형 다이어그램 -->
+        <div style="background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+            <div style="background:#fff5f5;border-radius:12px;padding:14px 10px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:4px;">✕</div>
+              <div style="font-size:11px;font-weight:700;color:#c0392b;">과한 웨이브</div>
+            </div>
+            <div style="background:var(--purple-bg);border-radius:12px;padding:14px 10px;text-align:center;border:2px solid var(--purple);">
+              <div style="font-size:20px;margin-bottom:4px;">✓</div>
+              <div style="font-size:11px;font-weight:700;color:var(--purple);">자연스러운<br/>질감</div>
+            </div>
+            <div style="background:#fff5f5;border-radius:12px;padding:14px 10px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:4px;">✕</div>
+              <div style="font-size:11px;font-weight:700;color:#c0392b;">과한 스타일링</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="background:#fff5f5;border-radius:12px;padding:14px 10px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:4px;">✕</div>
+              <div style="font-size:11px;font-weight:700;color:#c0392b;">떡짐 / 볼륨 없음</div>
+            </div>
+            <div style="text-align:center;padding:14px 10px;">
+              <div style="font-size:13px;font-weight:700;color:var(--purple);">⚖️ 질감의 균형</div>
+              <div style="font-size:11px;color:var(--text-sub);margin-top:4px;">가볍고 자연스럽게</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          질감은 스타일의 '가벼움·무게감·정리된 느낌'을 좌우합니다.
+        </p>
+
+        <p style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px;">✦ 문제가 되는 패턴</p>
+        <div class="bad-patterns">
+          <div class="bad-item">지나치게 부슬부슬 → 의지 안 한 듯, 촌스러운 느낌</div>
+          <div class="bad-item">지나치게 눌리고 로직 → 답답하고 무거운 인상</div>
+          <div class="bad-item">컬만 과하게 강조 → 어울리지 않아 보이기 쉬움</div>
+        </div>
+
+        <p style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px;">✦ 체크 기준</p>
+        <ul class="checklist">
+          <li>앞으로 빛이 떨어졌을 때 결 방향이 한 흐름으로 이어지는지</li>
+          <li>빛을 반사했을 때 광이 고르게 퍼지는지</li>
+          <li>웨이브·컬·스트레이트가 스타일을 어리게 하는 정도인지</li>
+        </ul>
+
+        <div class="summary-quote">질감은 '큰 덩어리'가 아니라, '자연스럽게 정돈된 상태'가 이상적이다</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 4: RELATION -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Connection</div>
+      <h2 class="sec-title">디자인 요소들의 관계</h2>
+      <p class="sec-desc">볼륨, 라인, 질감은 따로 떨어지지 않고 서로 연결됩니다.</p>
+
+      <div class="relation-box">
+        <p>
+          <strong>볼륨 위치가 바뀌면</strong> → 전체 실루엣과 라인이 달라지고<br />
+          <strong>라인 정리가 바뀌면</strong> → 머리의 무게감과 질감 인상이 달라지고<br />
+          <strong>질감 형태가 달라지면</strong> → 같은 볼륨·라인도 더 세련되거나 포근하게 느껴질 수 있습니다.
+        </p>
+        <div class="conclusion">
+          고급스러움은 하나의 요소가 아니라<br />
+          <strong>볼륨 · 라인 · 질감이 함께 맞물릴 때</strong> 만들어집니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 5: FORMULA -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Design Formula</div>
+      <h2 class="sec-title">고급스러운 헤어<br />디자인 공식</h2>
+      <p class="sec-desc">현장에서 바로 쓸 수 있는 체크 포인트를 정리했습니다.</p>
+
+      <div class="formula-box">
+        <div class="f-label">Design Formula</div>
+        <div class="f-eq">
+          고급스러운 스타일 =<br />
+          <span>얼굴형·두상에 맞는</span> <strong>볼륨 중심</strong><br />
+          + <span>전체 실루엣을 정리하는</span> <strong>라인</strong><br />
+          + <span>스타일 무게감에 맞는</span> <strong>질감 균형</strong>
+        </div>
+      </div>
+
+      <div class="point-list">
+        <div class="point-item">
+          <div class="point-num">1</div>
+          <div class="point-content">
+            <div class="point-title">볼륨 위치 확인</div>
+            <div class="point-desc">정수리 / 사이드 / 아래 중 어디에 포인트가 잡혀 있는지 먼저 확인한다</div>
+          </div>
+        </div>
+        <div class="point-item">
+          <div class="point-num">2</div>
+          <div class="point-content">
+            <div class="point-title">라인 정돈 확인</div>
+            <div class="point-desc">앞·옆·뒤에서 봤을 때 형태가 하나의 실루엣으로 연결되는지, 이마·귀 주변·목선 정리가 되어 있는지</div>
+          </div>
+        </div>
+        <div class="point-item">
+          <div class="point-num">3</div>
+          <div class="point-content">
+            <div class="point-title">질감 균형 확인</div>
+            <div class="point-desc">과하게 부슬부슬하거나 눌러 앉지 않았는지, 컬·결·광택이 자연스럽게 이어지는지</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 6: CLOSING + CTA -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Closing</div>
+      <h2 class="sec-title">마무리하며</h2>
+
+      <div class="closing">
+        <p>
+          헤어스타일은 단순히 머리를 맞고 자르는 기술이 아니라,<br />
+          <strong>얼굴형 · 이미지 · 라이프스타일을 디자인하는 과정</strong>입니다.<br /><br />
+          볼륨, 라인, 질감의 균형이 정리되면<br />
+          같은 컬, 같은 길이, 같은 스타일 이름이라도<br />
+          전체 분위기와 완성도가 완전히 달라질 수 있습니다.
+        </p>
+        <div class="author-note">
+          헤어 25년, 미용교사로서의 경험을 바탕으로<br />
+          앞으로도 실용적인 기준을 자료로 계속 정리해 드리겠습니다. 🙏
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; margin-bottom:16px; color:var(--text);">더 자세한 상담이 필요하시다면</p>
+
+      <div class="cta-links">
+        <a href="https://blog.naver.com/minkyoungism" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">📝</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">민경이즘 블로그</div>
+            <div>헤어 · 이미지 인사이트 보러가기</div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+        <a href="https://open.kakao.com/o/si1Fo8ai" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">💬</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">카카오 1:1 상담</div>
+            <div>얼굴형 · 이미지 맞춤 상담</div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+        <a href="https://open.kakao.com/o/svHTxrbi" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">✂️</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">민뷰티헤어 도치</div>
+            <div>최종 상담 · 예약 바로가기</div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 <strong>민경이즘</strong> · 무단 전재 및 재배포 금지</p>
+    <p style="margin-top:6px;">이 문서의 저작권은 '민경이즘'에 있습니다.</p>
+  </footer>
+
+</body>
+</html>

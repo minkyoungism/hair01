@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>민경이즘 카드뉴스 템플릿</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── DESIGN TOKENS ─────────────────────────────────── */
+    :root {
+      /* Sophisticated Pastel Lavender */
+      --p:      #8A78B8;
+      --p-dark: #6A58A0;
+      --p-mid:  #A898D0;
+      --p-soft: #C8BEDE;
+      --p-pale: #F0EBF9;
+      --p-ghost:#F8F5FD;
+
+      --text:   #1C1C1C;
+      --sub:    #606060;
+      --muted:  #B0B0B0;
+      --red:    #E05A56;
+      --paper:  #F5F2EE;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #DEDAD4;
+      padding: 96px 40px 128px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 72px;
+    }
+
+    /* ── PAGE LABEL ─────────────────────────────────────── */
+    .page-label {
+      font-size: 24px;
+      color: #888;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #fff;
+      padding: 16px 44px;
+      border-radius: 100px;
+    }
+
+    /* ── CARD WRAPPER ───────────────────────────────────── */
+    .wrap { position: relative; }
+    .wrap > .num {
+      position: absolute;
+      top: -44px;
+      left: 4px;
+      font-size: 22px;
+      color: #999;
+      font-weight: 500;
+    }
+
+    /* ── CARD BASE · 1080×1350 ──────────────────────────── */
+    .card {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--paper);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* 좌우·하단만 shorthand로, 상단은 각 카드 타입에서 개별 지정 */
+      padding-left: 112px;
+      padding-right: 112px;
+      padding-bottom: 144px;
+    }
+
+    /* ── HANDLE ─────────────────────────────────────────── */
+    .handle {
+      position: absolute;
+      bottom: 64px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 26px;
+      color: var(--muted);
+      white-space: nowrap;
+      font-weight: 400;
+      letter-spacing: 0.015em;
+    }
+
+    /* ── HIGHLIGHT BAR ──────────────────────────────────── */
+    .hl {
+      display: inline-block;
+      background: var(--p);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 12px;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── IMAGE PLACEHOLDER ──────────────────────────────── */
+    .ph {
+      flex-shrink: 0;
+      background: var(--p-pale);
+      border: 3px dashed var(--p-soft);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--p-soft);
+      font-size: 22px;
+      font-weight: 500;
+      gap: 10px;
+    }
+    .ph::before { content: '🖼'; font-size: 40px; }
+
+    /* Image caption */
+    .cap {
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--sub);
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    /* ── 2-COLUMN COMPARE ───────────────────────────────── */
+    .cmp2 {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+    .cmp2 > div { display: flex; flex-direction: column; align-items: center; }
+    .cmp2 .ph   { width: 384px; height: 420px; }
+
+    /* ── 3-COLUMN COMPARE ───────────────────────────────── */
+    .cmp3 {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+    }
+    .cmp3 > div { display: flex; flex-direction: column; align-items: center; }
+    .cmp3 .ph   { width: 268px; height: 392px; }
+
+    /* ── DECORATIONS ────────────────────────────────────── */
+    .circle-hl {
+      position: relative;
+      display: inline-block;
+    }
+    .circle-hl::after {
+      content: '';
+      position: absolute;
+      inset: -10px -14px;
+      border: 5px solid var(--red);
+      border-radius: 52% 48% 50% 50% / 48% 52% 48% 52%;
+      pointer-events: none;
+    }
+
+    .stars {
+      color: var(--red);
+      font-size: 36px;
+      letter-spacing: 12px;
+      margin-bottom: 16px;
+    }
+
+    /* ════════════════════════════════════════════════════
+       CARD 1 · 표지
+    ════════════════════════════════════════════════════ */
+    .c1 {
+      justify-content: center;
+      text-align: center;
+      gap: 24px;
+    }
+    .c1 .line1 {
+      font-size: 76px;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+    .c1 .hl   { font-size: 60px; padding: 18px 56px; }
+    .c1 .spacer { height: 56px; }
+
+    /* ════════════════════════════════════════════════════
+       CARD 2 · 질문
+    ════════════════════════════════════════════════════ */
+    .c2 { text-align: center; padding-top: 180px; }
+    .c2 .q {
+      font-size: 60px;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 36px;
+    }
+    .c2 .desc {
+      font-size: 30px;
+      color: var(--sub);
+      line-height: 1.8;
+      margin-bottom: 64px;
+    }
+
+    /* ════════════════════════════════════════════════════
+       CARD 3–8 · 콘텐츠
+    ════════════════════════════════════════════════════ */
+    .cc { text-align: center; padding-top: 180px; }
+    .cc .stmt {
+      font-size: 54px;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 28px;
+    }
+    .cc .desc {
+      font-size: 30px;
+      color: var(--sub);
+      line-height: 1.8;
+      margin-bottom: 56px;
+    }
+
+    /* ════════════════════════════════════════════════════
+       CARD 9 · CTA
+    ════════════════════════════════════════════════════ */
+    .c9 { text-align: center; padding-top: 180px; }
+    .c9 .title {
+      font-size: 60px;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 52px;
+    }
+    .c9 .hl    { font-size: 38px; padding: 20px 44px; margin-bottom: 48px; }
+    .c9 .desc  { font-size: 30px; color: var(--sub); line-height: 1.9; }
+    .c9 .profile-ph {
+      position: absolute;
+      bottom: 112px;
+      right: 80px;
+      width: 232px;
+      height: 272px;
+      background: var(--p-pale);
+      border: 3px dashed var(--p-soft);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--p-soft);
+      font-size: 22px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-label">민경이즘 · 카드뉴스 템플릿 9장 · 1080×1350</div>
+
+
+  <!-- ══════════════════════════════════════
+       CARD 1 · 표지
+  ══════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="num">Card 1 · 표지</div>
+    <div class="card c1">
+      <div class="line1">예쁜 머리 스타일은</div>
+      <div class="hl">밸런스가 중요합니다</div>
+      <div class="spacer"></div>
+      <div class="ph" style="width:400px;height:500px;">일러스트</div>
+      <div class="handle">@minkyoungism</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       CARD 2 · 질문
+  ══════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="num">Card 2 · 질문</div>
+    <div class="card c2">
+      <div class="q">많이 할 수록 예쁠까요?</div>
+      <div class="desc">볼륨을 많이 넣거나, 묶는 위치를 높이면<br>더 예뻐 보인다고 생각합니다</div>
+      <div class="ph" style="width:640px;height:480px;">이미지</div>
+      <div class="handle">@minkyoungism</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       CARD 3 · 과한 볼륨
+  ══════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="num">Card 3</div>
+    <div class="card cc">
+      <div class="stmt">과한 볼륨은 오히려 부해 보여요</div>
+      <div class="desc">볼륨이 많다고 해서<br>얼굴이 더 작아 보이는 건 아니에요</div>
+      <div class="cmp2">
+        <div><div class="ph">이미지</div><div class="cap">과한 볼륨</div></div>
+        <div><div class="ph">이미지</div><div class="cap">적당한 볼륨</div></div>
+      </div>
+      <div class="handle">@minkyoungism</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       CARD 4 · 묶는 위치
+  ══════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="num">Card 4</div>
+    <div class="card cc">
+      <div class="stmt">묶는 위치도 기준이 있어요</div>
+      <div class="desc">무조건 높게 묶는다고<br>더 어려 보이거나 더 예뻐 보이는 건 아니에요</div>
+      <div class="cmp2">
+        <div><div class="ph">이미지</div><div class="cap">높게 묶음</div></div>
+        <div><div class="ph">이미지</div><div class="cap">낮게 묶음</div></div>
+      </div>
+      <div class="handle">@minkyoungism</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       CARD 5 · 실루엣
+  ══════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="num">Card 5</div>
+    <div class="card cc">
+      <div class="stmt">실루엣이 추구미를 완성합니다</div>
+      <div class="desc">볼륨과 위치가 얼굴 라인과<br>조화를 이뤄야 자연스럽게 예뻐 보여요</div>
+      <div class="cmp2">
+        <div><div class="ph">이미지</div><div class="cap">발랄한 느낌</div></div>
+        <div><div class="ph">이미지</div><div class="cap">차분한 느낌</div></div>
+      </div>
+      <div class="handle">@minkyoungism</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       CARD 6 · 얼굴형과 비율
+  ══════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="num">Card 6</div>
+    <div class="card cc">
+      <div class="stmt">얼굴형과 <span class="circle-hl">비율</span>이 먼저에요</div>
+      <div class="desc">같은 스타일도 누군가는 예쁘고<br>누군가는 부담스럽게 보일 수 있어요</div>
+      <div class="cmp3">
+        <div><div class="ph">이미지</div><div class="cap">둥근형</div></div>
+        <div><div class="ph">이미지</div><div class="cap">긴형</div></div>
+        <div><div class="ph">이미지</div><div class="cap">각진형</div></div>
+      </div>
+      <div class="handle">@minkyoungism</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       CARD 7 · 균형
+  ══════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="num">Card 7</div>
+    <div class="card cc">
+      <div class="stars">✦ ✦ ✦</div>
+      <div class="stmt">중요한 건 균형이에요</div>
+      <div class="desc">헤어스타일은 볼륨, 위치, 실루엣까지<br>전체 인상과 맞아야 자연스럽고 세련돼 보여요</div>
+      <div class="cmp2">
+        <div><div class="ph">이미지</div><div class="cap">균형이 깨짐</div></div>
+        <div><div class="ph">이미지</div><div class="cap">조화로움</div></div>
+      </div>
+      <div class="handle">@minkyoungism</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       CARD 8 · 예쁜 스타일의 기준
+  ══════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="num">Card 8</div>
+    <div class="card cc">
+      <div class="stmt">예쁜 스타일은 기준이 있어요</div>
+      <div class="desc">내 얼굴형과 분위기에 맞는<br>볼륨과 위치를 찾는게 훨씬 중요해요</div>
+      <div class="cmp2">
+        <div><div class="ph">이미지</div><div class="cap">발랄한 분위기</div></div>
+        <div><div class="ph">이미지</div><div class="cap">차분한 분위기</div></div>
+      </div>
+      <div class="handle">@minkyoungism</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       CARD 9 · CTA
+  ══════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="num">Card 9 · CTA</div>
+    <div class="card c9">
+      <div class="title">내 기준이 궁금하다면</div>
+      <div class="hl">댓글에 '기준'이라고 남겨주세요</div>
+      <div style="height:32px"></div>
+      <div class="desc">얼굴유형별 예쁜 스타일 기준 정리본을<br>DM으로 전송해 드리겠습니다.</div>
+      <div class="profile-ph">프로필 사진</div>
+      <div class="handle">@minkyoungism</div>
+    </div>
+  </div>
+
+
+</body>
+</html>
