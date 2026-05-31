@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>김민경 강사 헤어 스타일 수업 교육만족도 조사</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F8F7F5;
+      --warm-gray: #9E9990;
+      --light-beige: #EDEAE6;
+      --dark: #2C2C2C;
+      --accent: #C4A882;
+      --accent-light: #EBD9C3;
+      --text-muted: #888;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: linear-gradient(145deg, #F0EDE8 0%, #E8E3DC 100%);
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+      color: var(--dark);
+    }
+
+    /* ── 헤더 ── */
+    .header {
+      text-align: center;
+      padding: 36px 24px 28px;
+      background: var(--cream);
+      border-radius: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      opacity: 0.5;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: -30px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      opacity: 0.35;
+    }
+    .brand-name {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--warm-gray);
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .emoji-row {
+      font-size: 28px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .header-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      position: relative;
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--dark);
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .notice-box {
+      background: #F5F2EE;
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: left;
+      position: relative;
+    }
+    .notice-box p {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .notice-box .time-badge {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── 진행 바 ── */
+    .progress-wrap {
+      background: var(--light-beige);
+      border-radius: 20px;
+      height: 4px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 20px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* ── 카드 ── */
+    .card {
+      background: var(--cream);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+    .card-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .card h2 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 18px;
+      line-height: 1.55;
+    }
+    .required-dot::after {
+      content: ' *';
+      color: #E08080;
+    }
+    .optional-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--text-muted);
+      background: var(--light-beige);
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* ── 드롭다운 ── */
+    .select-wrap { position: relative; }
+    .select-wrap select {
+      width: 100%;
+      padding: 14px 40px 14px 16px;
+      border-radius: 12px;
+      border: 1.5px solid var(--light-beige);
+      background: white;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 14px;
+      color: var(--dark);
+      appearance: none;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .select-wrap select:focus { border-color: var(--accent); }
+    .select-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--warm-gray);
+      pointer-events: none;
+    }
+
+    /* ── 라디오 ── */
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-item input { display: none; }
+    .option-item label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1.5px solid var(--light-beige);
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--dark);
+      transition: all 0.2s;
+      background: white;
+    }
+    .dot {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid #CCC;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .dot::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .option-item input:checked + label { border-color: var(--accent); background: var(--accent-light); }
+    .option-item input:checked + label .dot { border-color: var(--accent); }
+    .option-item input:checked + label .dot::after { opacity: 1; }
+
+    /* ── 텍스트 입력 ── */
+    textarea {
+      width: 100%;
+      border: 1.5px solid var(--light-beige);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 14px;
+      resize: none;
+      outline: none;
+      background: white;
+      color: var(--dark);
+      transition: border-color 0.2s;
+      line-height: 1.7;
+    }
+    textarea:focus { border-color: var(--accent); }
+    textarea::placeholder { color: #BBB; font-weight: 300; }
+
+    /* ── 제출 버튼 ── */
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--dark);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    .submit-btn:hover { background: var(--accent); transform: translateY(-1px); }
+    .submit-btn:disabled { background: #BBB; transform: none; cursor: not-allowed; }
+
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 24px;
+      line-height: 1.9;
+      font-weight: 300;
+    }
+
+    /* ── 완료 화면 ── */
+    .done-screen {
+      display: none;
+      text-align: center;
+      background: var(--cream);
+      border-radius: 24px;
+      padding: 60px 28px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .done-screen .big-emoji { font-size: 60px; margin-bottom: 20px; }
+    .done-screen h2 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+    .done-screen p { font-size: 14px; color: var(--text-muted); line-height: 1.9; font-weight: 300; }
+    .done-screen .brand { margin-top: 32px; font-size: 12px; font-weight: 500; color: var(--accent); letter-spacing: 0.16em; }
+  </style>
+</head>
+<body>
+
+<div id="survey-form">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <div class="brand-name">minkyoungism</div>
+    <div class="emoji-row">💇‍♀️✨</div>
+    <div class="header-tag">Instructor Feedback Survey</div>
+    <h1>김민경 강사 헤어 스타일 수업<br>교육만족도 조사</h1>
+    <div class="notice-box">
+      <p>
+        안녕하세요. 이 설문은 <strong>김민경 강사의 수업 개선과 교육 품질 향상</strong>을 위한 개인 피드백 설문입니다.<br><br>
+        현재 진행된 수업 기관의 공식 만족도 조사와는 별개이며, 응답 내용은 강의력 향상, 커리큘럼 보완, 향후 교육 설계 참고용으로만 활용됩니다.<br><br>
+        학생 모집이나 별도 홍보 목적이 아닌, 어디서든 더 좋은 수업을 만들기 위한 기록용 피드백입니다.
+      </p>
+      <span class="time-badge">⏱ 응답 약 1~2분 소요</span>
+    </div>
+  </div>
+
+  <!-- 진행바 -->
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Q01 수업 유형 -->
+  <div class="card">
+    <div class="card-label">Q 01</div>
+    <h2 class="required-dot">수업 유형을 선택해주세요</h2>
+    <div class="select-wrap">
+      <select id="q1" onchange="updateProgress()">
+        <option value="">선택해주세요</option>
+        <option value="드라이">드라이</option>
+        <option value="업스타일">업스타일</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Q02 전체 만족도 -->
+  <div class="card">
+    <div class="card-label">Q 02</div>
+    <h2 class="required-dot">오늘 수업 전체에 얼마나 만족하셨나요?</h2>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q2" id="q2a" value="매우 만족"><label for="q2a"><span class="dot"></span>매우 만족</label></div>
+      <div class="option-item"><input type="radio" name="q2" id="q2b" value="만족"><label for="q2b"><span class="dot"></span>만족</label></div>
+      <div class="option-item"><input type="radio" name="q2" id="q2c" value="보통"><label for="q2c"><span class="dot"></span>보통</label></div>
+      <div class="option-item"><input type="radio" name="q2" id="q2d" value="아쉬움"><label for="q2d"><span class="dot"></span>아쉬움</label></div>
+      <div class="option-item"><input type="radio" name="q2" id="q2e" value="매우 아쉬움"><label for="q2e"><span class="dot"></span>매우 아쉬움</label></div>
+    </div>
+  </div>
+
+  <!-- Q03 강사 설명 이해도 -->
+  <div class="card">
+    <div class="card-label">Q 03</div>
+    <h2 class="required-dot">강사의 설명과 시연 방식은 이해하기 쉬웠나요?</h2>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q3" id="q3a" value="매우 그렇다"><label for="q3a"><span class="dot"></span>매우 그렇다</label></div>
+      <div class="option-item"><input type="radio" name="q3" id="q3b" value="그렇다"><label for="q3b"><span class="dot"></span>그렇다</label></div>
+      <div class="option-item"><input type="radio" name="q3" id="q3c" value="보통이다"><label for="q3c"><span class="dot"></span>보통이다</label></div>
+      <div class="option-item"><input type="radio" name="q3" id="q3d" value="그렇지 않다"><label for="q3d"><span class="dot"></span>그렇지 않다</label></div>
+      <div class="option-item"><input type="radio" name="q3" id="q3e" value="전혀 그렇지 않다"><label for="q3e"><span class="dot"></span>전혀 그렇지 않다</label></div>
+    </div>
+  </div>
+
+  <!-- Q04 실무 역량 향상 -->
+  <div class="card">
+    <div class="card-label">Q 04</div>
+    <h2 class="required-dot">김민경 강사의 수업이 본인의 실무 역량 향상에 도움이 되었다고 생각하십니까?</h2>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q4" id="q4a" value="매우 그렇다"><label for="q4a"><span class="dot"></span>매우 그렇다</label></div>
+      <div class="option-item"><input type="radio" name="q4" id="q4b" value="그렇다"><label for="q4b"><span class="dot"></span>그렇다</label></div>
+      <div class="option-item"><input type="radio" name="q4" id="q4c" value="보통이다"><label for="q4c"><span class="dot"></span>보통이다</label></div>
+      <div class="option-item"><input type="radio" name="q4" id="q4d" value="그렇지 않다"><label for="q4d"><span class="dot"></span>그렇지 않다</label></div>
+      <div class="option-item"><input type="radio" name="q4" id="q4e" value="전혀 그렇지 않다"><label for="q4e"><span class="dot"></span>전혀 그렇지 않다</label></div>
+    </div>
+  </div>
+
+  <!-- Q05 도움된 점 + 아쉬운 점 -->
+  <div class="card">
+    <div class="card-label">Q 05</div>
+    <h2 class="required-dot">오늘 수업에서 도움된 점, 아쉬운 점을 자유롭게 적어주세요</h2>
+    <textarea id="q5" rows="5" placeholder="솔직한 의견이 수업 개선에 큰 도움이 됩니다 ✏️" oninput="updateProgress()"></textarea>
+  </div>
+
+  <!-- Q06 강사에게 한마디 -->
+  <div class="card">
+    <div class="card-label">Q 06</div>
+    <h2>강사에게 전하고 싶은 한마디가 있다면 자유롭게 작성해주세요<span class="optional-tag">선택</span></h2>
+    <textarea id="q6" rows="4" placeholder="어떤 말씀이든 진심으로 읽겠습니다 🙏"></textarea>
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">제출하기 →</button>
+
+  <p class="footer-note">
+    응답 내용은 수업 개선 목적으로만 활용되며<br>
+    학생 모집·홍보에 사용되지 않습니다 🔒<br>
+    minkyoungism · 김민경 강사
+  </p>
+
+</div>
+
+<!-- 완료 화면 -->
+<div class="done-screen" id="doneScreen">
+  <div class="big-emoji">🎉</div>
+  <h2>감사합니다!</h2>
+  <p>소중한 의견 잘 받았습니다.<br>더 좋은 수업으로 보답할게요 💛<br><br>수고 많으셨습니다!</p>
+  <div class="brand">minkyoungism · 김민경 강사</div>
+</div>
+
+<script>
+  function updateProgress() {
+    let done = 0;
+    if (document.getElementById('q1').value) done++;
+    if (document.querySelector('input[name="q2"]:checked')) done++;
+    if (document.querySelector('input[name="q3"]:checked')) done++;
+    if (document.querySelector('input[name="q4"]:checked')) done++;
+    if (document.getElementById('q5').value.trim()) done++;
+    document.getElementById('progressBar').style.width = (done / 5 * 100) + '%';
+  }
+
+  document.querySelectorAll('input[type="radio"]').forEach(i => i.addEventListener('change', updateProgress));
+
+  async function submitForm() {
+    const q1 = document.getElementById('q1').value;
+    const q2 = document.querySelector('input[name="q2"]:checked');
+    const q3 = document.querySelector('input[name="q3"]:checked');
+    const q4 = document.querySelector('input[name="q4"]:checked');
+    const q5 = document.getElementById('q5').value.trim();
+
+    if (!q1 || !q2 || !q3 || !q4 || !q5) {
+      alert('필수 항목을 모두 답해주세요 😊\n(Q01~Q05는 필수입니다)');
+      return;
+    }
+
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = '제출 중...';
+    btn.disabled = true;
+
+    const data = {
+      수업유형: q1,
+      전체만족도: q2.value,
+      강사설명이해도: q3.value,
+      실무역량향상도움: q4.value,
+      도움된점_아쉬운점: q5,
+      강사에게한마디: document.getElementById('q6').value.trim() || '(미입력)',
+      제출시각: new Date().toLocaleString('ko-KR')
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xredvjlk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        document.getElementById('survey-form').style.display = 'none';
+        document.getElementById('doneScreen').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        alert('제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+        btn.textContent = '제출하기 →';
+        btn.disabled = false;
+      }
+    } catch (e) {
+      alert('네트워크 오류입니다. 인터넷 연결을 확인해주세요.');
+      btn.textContent = '제출하기 →';
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
