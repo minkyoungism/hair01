@@ -377,11 +377,18 @@
     <textarea id="q5" rows="5" placeholder="솔직한 의견이 수업 개선에 큰 도움이 됩니다 ✏️" oninput="updateProgress()"></textarea>
   </div>
 
-  <!-- Q06 강사에게 한마디 -->
+  <!-- Q06 추가로 듣고 싶은 수업 -->
   <div class="card">
     <div class="card-label">Q 06</div>
+    <h2>앞으로 추가로 듣고 싶은 수업이나 주제가 있다면 적어주세요<span class="optional-tag">선택</span></h2>
+    <textarea id="q6" rows="4" placeholder="커리큘럼 구성에 반영할게요 💡"></textarea>
+  </div>
+
+  <!-- Q07 강사에게 한마디 -->
+  <div class="card">
+    <div class="card-label">Q 07</div>
     <h2>강사에게 전하고 싶은 한마디가 있다면 자유롭게 작성해주세요<span class="optional-tag">선택</span></h2>
-    <textarea id="q6" rows="4" placeholder="어떤 말씀이든 진심으로 읽겠습니다 🙏"></textarea>
+    <textarea id="q7" rows="4" placeholder="어떤 말씀이든 진심으로 읽겠습니다 🙏"></textarea>
   </div>
 
   <button class="submit-btn" onclick="submitForm()">제출하기 →</button>
@@ -437,7 +444,8 @@
       강사설명이해도: q3.value,
       실무역량향상도움: q4.value,
       도움된점_아쉬운점: q5,
-      강사에게한마디: document.getElementById('q6').value.trim() || '(미입력)',
+      추가듣고싶은수업: document.getElementById('q6').value.trim() || '(미입력)',
+      강사에게한마디: document.getElementById('q7').value.trim() || '(미입력)',
       제출시각: new Date().toLocaleString('ko-KR')
     };
 
