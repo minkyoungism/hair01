@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>볼륨 위치로 10살 어려 보이는 법 | 민경이즘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple:      #7B5EA7;
+      --purple-light:#A78BCC;
+      --purple-bg:   #EDE8F7;
+      --purple-pale: #F5F1FB;
+      --beige:       #FAF7F4;
+      --beige-dark:  #F0EAE2;
+      --text:        #2D2D2D;
+      --text-sub:    #666;
+      --white:       #FFFFFF;
+      --shadow:      0 4px 20px rgba(123,94,167,.12);
+      --radius:      18px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--beige);
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(145deg, #ede8f7 0%, #f5f0fb 50%, #faf7f4 100%);
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123,94,167,.08) 0%, transparent 70%);
+      top: -100px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      font-size: 12px; font-weight: 600; letter-spacing: .08em;
+      padding: 5px 16px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 42px);
+      font-weight: 900; line-height: 1.3; color: var(--text); margin-bottom: 12px;
+    }
+    .hero h1 em { color: var(--purple); font-style: normal; }
+    .hero .sub { font-size: 15px; color: var(--text-sub); margin-bottom: 32px; }
+
+    .author-chip {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--white); border-radius: 100px;
+      padding: 10px 20px; box-shadow: var(--shadow);
+      font-size: 14px; font-weight: 500;
+    }
+    .author-chip .dot {
+      width: 44px; height: 44px; border-radius: 50%;
+      overflow: hidden; border: 2px solid var(--purple-light); flex-shrink: 0;
+    }
+    .author-chip .dot img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+    .hero-links {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 20px;
+    }
+    .hero-link-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #fff; border-radius: 100px; padding: 9px 18px;
+      text-decoration: none; color: #2D2D2D;
+      box-shadow: 0 4px 20px rgba(123,94,167,.12);
+      font-size: 13px; font-weight: 600;
+      transition: transform .15s, box-shadow .15s; white-space: nowrap;
+    }
+    .hero-link-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(123,94,167,.2); }
+
+    /* ── LAYOUT ───────────────────────────────────── */
+    .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 56px 0 0; }
+    section:last-of-type { padding-bottom: 80px; }
+
+    /* ── SECTION TITLE ────────────────────────────── */
+    .sec-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      color: var(--purple); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .sec-label::before {
+      content: ''; display: block; width: 18px; height: 2px;
+      background: var(--purple); border-radius: 2px;
+    }
+    .sec-title { font-size: clamp(20px, 3.5vw, 28px); font-weight: 800; line-height: 1.4; margin-bottom: 6px; }
+    .sec-desc  { font-size: 14px; color: var(--text-sub); margin-bottom: 32px; }
+
+    /* ── CARD ─────────────────────────────────────── */
+    .card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 28px; box-shadow: var(--shadow); margin-bottom: 16px;
+    }
+
+    /* ── COMPARE CARD ─────────────────────────────── */
+    .compare-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (max-width: 500px) { .compare-wrap { grid-template-columns: 1fr; } }
+
+    .compare-card { background: var(--white); border-radius: var(--radius); padding: 24px 20px; box-shadow: var(--shadow); }
+    .compare-card .tag {
+      display: inline-block; font-size: 12px; font-weight: 700;
+      padding: 4px 14px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .compare-card.bad  .tag { background: #e8e8e8; color: #555; }
+    .compare-card.good .tag { background: var(--purple); color: #fff; }
+    .compare-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .compare-card li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; font-weight: 500; }
+    .compare-card li .icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0; margin-top: 1px;
+    }
+    .compare-card.bad  li .icon { background: #f0f0f0; color: #999; }
+    .compare-card.good li .icon { background: var(--purple-bg); color: var(--purple); }
+
+    /* ── TARGET LIST ──────────────────────────────── */
+    .target-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .target-item {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--purple-pale); border-radius: 12px;
+      padding: 14px 18px; font-size: 14px; font-weight: 500;
+    }
+    .target-item .num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+
+    /* ── TABLE ────────────────────────────────────── */
+    .tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--purple-bg); margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: var(--purple-bg); color: var(--purple); font-weight: 700; padding: 12px 16px; text-align: left; }
+    td { padding: 11px 16px; color: var(--text-sub); border-top: 1px solid var(--purple-bg); vertical-align: top; }
+
+    /* ── PROBLEM BLOCK ────────────────────────────── */
+    .prob-block {
+      background: var(--white); border-radius: var(--radius);
+      padding: 28px; box-shadow: var(--shadow); margin-bottom: 20px;
+    }
+    .prob-block .prob-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .prob-block .step-badge {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; flex-shrink: 0;
+    }
+    .prob-block .prob-title { font-size: 17px; font-weight: 800; }
+    .prob-block .prob-sub   { font-size: 13px; color: var(--text-sub); }
+
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .checklist li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 14px; padding: 12px 14px;
+      background: var(--beige); border-radius: 10px;
+    }
+    .checklist li::before {
+      content: '✓'; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--purple-bg); color: var(--purple);
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    .summary-quote {
+      background: var(--purple-bg); border-left: 4px solid var(--purple);
+      border-radius: 0 12px 12px 0; padding: 14px 18px;
+      font-size: 14px; font-weight: 700; color: var(--purple);
+    }
+
+    /* ── FACE SHAPE CARDS ─────────────────────────── */
+    .face-card {
+      background: var(--white); border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow); margin-bottom: 16px;
+    }
+    .face-card-header {
+      background: var(--purple); padding: 18px 22px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .face-card-header .icon { font-size: 22px; }
+    .face-card-header .name { font-size: 16px; font-weight: 800; color: #fff; }
+    .face-card-header .sub  { font-size: 12px; color: rgba(255,255,255,.7); }
+    .face-card-body { padding: 22px; }
+
+    /* 얼굴형별 개별 이미지 */
+    .face-img {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .face-img img {
+      width: 100%;
+      display: block;
+    }
+
+    .face-goal {
+      display: inline-block; background: var(--purple-bg); color: var(--purple);
+      font-size: 12px; font-weight: 700; padding: 5px 14px;
+      border-radius: 100px; margin-bottom: 14px;
+    }
+    .do-dont { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .do-item, .dont-item { font-size: 13px; padding: 10px 14px; border-radius: 10px; font-weight: 500; }
+    .dont-item { background: #fff5f5; color: #c0392b; }
+    .do-item   { background: var(--purple-bg); color: var(--purple); }
+
+    .face-tips-title {
+      font-size: 12px; font-weight: 700; color: var(--text-sub);
+      letter-spacing: .06em; margin-bottom: 8px; margin-top: 14px;
+    }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+    .tag-rec  { background: var(--purple-bg); color: var(--purple); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 100px; }
+    .tag-warn { background: #fff5f5; color: #c0392b; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 100px; }
+    .salon-tip {
+      margin-top: 12px; background: var(--beige);
+      border-radius: 10px; padding: 12px 14px;
+      font-size: 13px; color: var(--text-sub); font-style: italic;
+    }
+
+    /* ── POINT LIST ───────────────────────────────── */
+    .point-list { display: flex; flex-direction: column; gap: 12px; }
+    .point-item {
+      background: var(--white); border-radius: 14px; padding: 20px;
+      box-shadow: var(--shadow); display: flex; gap: 16px; align-items: flex-start;
+    }
+    .point-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--purple-bg); color: var(--purple);
+      font-size: 14px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .point-content .point-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .point-content .point-desc  { font-size: 13px; color: var(--text-sub); }
+
+    /* ── TODO LIST ────────────────────────────────── */
+    .todo-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .todo-item {
+      display: flex; gap: 12px; align-items: center;
+      font-size: 14px; padding: 12px 14px;
+      background: var(--beige); border-radius: 10px;
+    }
+    .todo-box { width: 18px; height: 18px; border: 2px solid var(--purple-light); border-radius: 5px; flex-shrink: 0; }
+
+    /* ── FORMULA BOX ──────────────────────────────── */
+    .formula-box {
+      background: var(--purple); border-radius: var(--radius);
+      padding: 32px 28px; color: #fff; text-align: center; margin-bottom: 24px;
+    }
+    .formula-box .f-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .15em;
+      text-transform: uppercase; opacity: .75; margin-bottom: 14px;
+    }
+    .formula-box .f-eq { font-size: clamp(15px, 3vw, 19px); font-weight: 800; line-height: 1.9; }
+    .formula-box .f-eq span { opacity: .65; font-size: .85em; }
+
+    /* ── GUIDE IMAGE ─────────────────────────────── */
+    .guide-img { width: 100%; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 24px; }
+    .guide-img img { width: 100%; display: block; }
+
+    /* ── CLOSING ──────────────────────────────────── */
+    .closing {
+      background: linear-gradient(145deg, #ede8f7, #faf7f4);
+      border-radius: var(--radius); padding: 36px 28px; text-align: center;
+      margin-bottom: 28px; box-shadow: var(--shadow);
+    }
+    .closing p { font-size: 15px; font-weight: 500; line-height: 1.9; color: var(--text); }
+    .closing .author-note { margin-top: 20px; font-size: 13px; color: var(--text-sub); font-style: italic; }
+
+    /* ── CTA LINKS ────────────────────────────────── */
+    .cta-links { display: flex; flex-direction: column; gap: 12px; }
+    .cta-btn {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--white); border-radius: 14px; padding: 13px 18px;
+      text-decoration: none; color: var(--text); box-shadow: var(--shadow);
+      font-size: 13px; font-weight: 600; transition: transform .15s, box-shadow .15s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(123,94,167,.18); }
+    .cta-btn .icon-box {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: var(--purple-bg); color: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .cta-btn .arrow { margin-left: auto; color: var(--purple-light); }
+
+    /* ── DIVIDER ──────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--beige-dark), transparent);
+      margin: 40px 0 0;
+    }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      text-align: center; padding: 32px 24px;
+      font-size: 12px; color: #aaa;
+      background: var(--white); margin-top: 56px;
+    }
+    footer strong { color: var(--purple); }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">VOLUME POSITION GUIDE</div>
+    <h1>볼륨 위치로<br /><em>10살 어려 보이는 법</em></h1>
+    <p class="sub">볼륨 위치만 바꿔도 동안과 노안이 결정됩니다</p>
+    <div class="author-chip">
+      <div class="dot">
+        <img src="../profile.png" alt="민경이즘 프로필" />
+      </div>
+      <span>25년차 현장 전문 미용교수 · <strong>민경이즘</strong></span>
+    </div>
+    <div class="hero-links">
+      <a href="https://www.instagram.com/minkyoungism" target="_blank" rel="noopener" class="hero-link-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/>
+            <stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/>
+            <stop offset="100%" stop-color="#bc1888"/>
+          </linearGradient></defs>
+          <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#ig)"/>
+          <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none"/>
+          <circle cx="17.2" cy="6.8" r="1.2" fill="white"/>
+        </svg>
+        인스타그램
+      </a>
+      <a href="https://www.youtube.com/@minkyoungism" target="_blank" rel="noopener" class="hero-link-btn">▶️ 유튜브</a>
+      <a href="https://blog.naver.com/minkyoungism" target="_blank" rel="noopener" class="hero-link-btn">📝 블로그</a>
+      <a href="https://www.tiktok.com/@minkyoungism" target="_blank" rel="noopener" class="hero-link-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.87a8.2 8.2 0 004.8 1.54V7a4.85 4.85 0 01-1.03-.31z"/></svg>
+        틱톡
+      </a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Overview</div>
+      <h2 class="sec-title">귀 위 볼륨 vs 귀 아래 볼륨,<br />동안과 노안이 결정됩니다</h2>
+      <p class="sec-desc">헤어샵에서 "어려보이게 해주세요"라고 했는데 결과가 달랐던 경험, 한 번쯤은 있으실 거예요.</p>
+
+      <div class="guide-img">
+        <img src="../vol2.png" alt="드라이 고민하는 장면" />
+      </div>
+
+      <div class="compare-wrap">
+        <div class="compare-card bad">
+          <span class="tag">귀 아래 볼륨</span>
+          <ul>
+            <li><span class="icon">✕</span>시선이 아래로 내려감</li>
+            <li><span class="icon">✕</span>얼굴이 넓고 무거워 보임</li>
+            <li><span class="icon">✕</span>광대·볼 라인이 강조됨</li>
+          </ul>
+        </div>
+        <div class="compare-card good">
+          <span class="tag">귀 위 볼륨</span>
+          <ul>
+            <li><span class="icon">✓</span>시선이 위로 올라감</li>
+            <li><span class="icon">✓</span>얼굴이 갸름하고 가벼워 보임</li>
+            <li><span class="icon">✓</span>리프팅된 것처럼 어려 보임</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <p style="font-size:14px; font-weight:600; margin-bottom:12px; color:var(--purple)">이런 분께 특히 도움이 됩니다</p>
+        <div class="target-list">
+          <div class="target-item"><div class="num">1</div>어려보이게 해달라고 했는데 결과가 아쉬웠던 분</div>
+          <div class="target-item"><div class="num">2</div>귀 위 볼륨, 귀 아래 볼륨 차이가 뭔지 궁금한 분</div>
+          <div class="target-item"><div class="num">3</div>셀프 드라이·고데기할 때 볼륨 위치를 어떻게 잡아야 할지 모르는 분</div>
+          <div class="target-item"><div class="num">4</div>헤어샵에서 볼륨 위치를 구체적으로 말하고 싶은 분</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 2: CORE PRINCIPLE -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Core Principle</div>
+      <h2 class="sec-title">볼륨 위치가<br />10살을 바꿉니다</h2>
+      <p class="sec-desc">헤어 볼륨은 그 위치를 <strong>시각적으로 더 넓어 보이게</strong> 만듭니다.<br />줄이고 싶은 부분에 볼륨이 있으면 오히려 더 강조됩니다.</p>
+
+      <div class="guide-img">
+        <img src="../vol3.png" style="width:100%; display:block; border-radius:12px;" alt="볼륨 위치만 바꿔도 10살 어려 보이는 법 인포그래픽" />
+      </div>
+
+      <div class="card">
+        <div class="tbl-wrap" style="margin-bottom:0;">
+          <table>
+            <tr><th>원하는 효과</th><th>볼륨 위치</th></tr>
+            <tr><td>얼굴을 갸름하게</td><td>넓어 보이는 부분에서 볼륨 제거</td></tr>
+            <tr><td>얼굴을 짧아 보이게</td><td>옆으로 볼륨, 정수리 볼륨 최소화</td></tr>
+            <tr><td>얼굴을 균형 있게</td><td>좁아 보이는 부분에 볼륨 추가</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 3: TOP 3 MISTAKES -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Common Mistakes</div>
+      <h2 class="sec-title">나도 모르게 노안으로 만드는<br />볼륨 실수 TOP 3</h2>
+      <p class="sec-desc">어디서 무너지는지 알면, 개선 방향이 바로 보입니다.</p>
+
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">1</div>
+          <div>
+            <div class="prob-title">귀 아래 볼륨을 살리는 경우</div>
+            <div class="prob-sub">둥근 얼굴형, 사각형 얼굴형에서 특히 많이 나타납니다</div>
+          </div>
+        </div>
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          볼륨이 귀 아래에 집중되면 광대·볼 라인이 강조되어 얼굴이 더 넓어 보입니다.
+        </p>
+        <ul class="checklist">
+          <li>드라이할 때 귀 아래쪽은 안으로 눌러주기</li>
+          <li>귀 위쪽 모발을 살짝 들어올리며 드라이하기</li>
+        </ul>
+        <div class="summary-quote">귀 아래는 빼고, 귀 위에 볼륨을 모아주세요</div>
+      </div>
+
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">2</div>
+          <div>
+            <div class="prob-title">정수리에만 볼륨을 올리는 경우</div>
+            <div class="prob-sub">긴 얼굴형에서 특히 주의가 필요합니다</div>
+          </div>
+        </div>
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          정수리 볼륨은 세로 길이감을 극대화하여 얼굴이 더 길어 보이게 만듭니다.
+        </p>
+        <ul class="checklist">
+          <li>정수리보다 옆머리(귀 옆, 광대 옆)에 볼륨 주기</li>
+          <li>정수리는 살짝 눌러 납작하게 마무리하기</li>
+        </ul>
+        <div class="summary-quote">긴 얼굴은 옆 볼륨이 정수리 볼륨보다 중요합니다</div>
+      </div>
+
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">3</div>
+          <div>
+            <div class="prob-title">볼륨 없이 납작하게 붙이는 경우</div>
+            <div class="prob-sub">역삼각형·하트형 얼굴형에서 두드러집니다</div>
+          </div>
+        </div>
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          턱 쪽이 너무 납작하면 이마·광대가 더 강조됩니다. 아래쪽에 적당한 볼륨이 없으면 위아래 불균형이 심해집니다.
+        </p>
+        <ul class="checklist">
+          <li>턱선 아래쪽에 C컬이나 웨이브로 볼륨감 만들기</li>
+          <li>위쪽보다 아래쪽에 무게감이 오도록 드라이하기</li>
+        </ul>
+        <div class="summary-quote">아래에 볼륨을 주어 위아래 균형을 맞추세요</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 4: FACE SHAPE GUIDE -->
+  <!-- face.png 열 순서: 계란형(0%), 둥근형(20%), 각진형(40%), 역삼각형(60%), 하트형(80%), 긴형(100%) -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Face Shape Guide</div>
+      <h2 class="sec-title">얼굴형별 볼륨 위치 기준</h2>
+      <p class="sec-desc">내 얼굴형에 맞는 볼륨 위치와 셀프 스타일링 팁을 정리했습니다.</p>
+
+      <!-- 둥근형 — face.png 2번째 열 → 20% -->
+      <div class="face-card">
+        <div class="face-card-header">
+          <div class="icon">🔵</div>
+          <div>
+            <div class="name">둥근 얼굴형</div>
+            <div class="sub">가로 넓이 ≈ 세로 길이 / 볼이 통통하고 광대가 넓은 편</div>
+          </div>
+        </div>
+        <div class="face-card-body">
+          <div class="face-img"><img src="../face_round.png" alt="둥근 얼굴형" /></div>
+          <span class="face-goal">목표: 세로 길이감을 만들어 갸름하게</span>
+          <div class="do-dont">
+            <div class="dont-item">❌ 귀 아래, 볼 옆 볼륨 → 광대 강조 → 더 넓어 보임</div>
+            <div class="do-item">✅ 귀 위, 정수리 방향 → 세로 길이감 → 갸름해 보임</div>
+          </div>
+          <div class="face-tips-title">셀프 스타일링 팁</div>
+          <ul class="checklist">
+            <li>드라이할 때 귀 아래쪽은 안으로 눌러주기</li>
+            <li>귀 위쪽 모발을 살짝 들어올리며 드라이</li>
+            <li>고데기는 귀 위쪽에서 볼륨 C컬</li>
+          </ul>
+          <div class="face-tips-title">추천 스타일</div>
+          <div class="tag-row">
+            <span class="tag-rec">레이어드 컷</span>
+            <span class="tag-rec">센터·사이드파트</span>
+            <span class="tag-rec">긴 웨이브</span>
+            <span class="tag-warn">짧은 보브 ✕</span>
+            <span class="tag-warn">양 옆 퍼지는 파마 ✕</span>
+          </div>
+          <div class="salon-tip">💬 헤어샵에서: "귀 위쪽에 볼륨 살려주시고, 귀 아래는 자연스럽게 떨어지게 해주세요."</div>
+        </div>
+      </div>
+
+      <!-- 각진형 — face.png 3번째 열 → 40% -->
+      <div class="face-card">
+        <div class="face-card-header">
+          <div class="icon">🔲</div>
+          <div>
+            <div class="name">각진 얼굴형 (사각형)</div>
+            <div class="sub">이마·광대·턱이 비슷한 넓이 / 턱선이 각진 편</div>
+          </div>
+        </div>
+        <div class="face-card-body">
+          <div class="face-img"><img src="../face_square.png" alt="각진 얼굴형" /></div>
+          <span class="face-goal">목표: 끝 라인을 부드럽게 하여 각을 완화</span>
+          <div class="do-dont">
+            <div class="dont-item">❌ 하관을 덮는 일직선 볼륨 → 턱선 강조 → 더 각져 보임</div>
+            <div class="do-item">✅ C컬로 부드럽게 마무리 → 턱선이 자연스럽게 커버됨</div>
+          </div>
+          <div class="face-tips-title">셀프 스타일링 팁</div>
+          <ul class="checklist">
+            <li>끝부분을 안쪽으로 C컬로 마무리</li>
+            <li>하관 쪽은 볼륨을 최소화</li>
+            <li>앞머리가 있으면 이마~턱 비율이 분산되어 더 부드러워 보임</li>
+          </ul>
+          <div class="face-tips-title">추천 스타일</div>
+          <div class="tag-row">
+            <span class="tag-rec">레이어드 + C컬</span>
+            <span class="tag-rec">웨이브</span>
+            <span class="tag-rec">쇄골~가슴 길이</span>
+            <span class="tag-warn">턱선 단발 ✕</span>
+            <span class="tag-warn">직선 볼륨 ✕</span>
+          </div>
+          <div class="salon-tip">💬 헤어샵에서: "끝 라인을 C컬로 부드럽게 마무리해 주세요. 하관 쪽 볼륨은 줄여주세요."</div>
+        </div>
+      </div>
+
+      <!-- 역삼각형 — face.png 4번째 열 → 60% -->
+      <div class="face-card">
+        <div class="face-card-header">
+          <div class="icon">🔺</div>
+          <div>
+            <div class="name">역삼각형 얼굴형</div>
+            <div class="sub">이마·광대가 넓고 턱이 뾰족한 편</div>
+          </div>
+        </div>
+        <div class="face-card-body">
+          <div class="face-img"><img src="../face_inv.png" alt="역삼각형 얼굴형" /></div>
+          <span class="face-goal">목표: 아래쪽 볼륨으로 균형 잡기</span>
+          <div class="do-dont">
+            <div class="dont-item">❌ 이마·광대 쪽 볼륨 → 위 강조 → 불균형해 보임</div>
+            <div class="do-item">✅ 턱선 아래 볼륨 → 아래 무게감 → 균형이 잡혀 보임</div>
+          </div>
+          <div class="face-tips-title">셀프 스타일링 팁</div>
+          <ul class="checklist">
+            <li>턱선 아래쪽에 C컬이나 웨이브로 볼륨 만들기</li>
+            <li>사이드파트로 이마 넓이 분산</li>
+            <li>위쪽보다 아래쪽에 무게감이 오도록 드라이</li>
+          </ul>
+          <div class="face-tips-title">추천 스타일</div>
+          <div class="tag-row">
+            <span class="tag-rec">턱선~쇄골 단발</span>
+            <span class="tag-rec">사이드파트</span>
+            <span class="tag-rec">아래 볼륨 레이어드</span>
+            <span class="tag-warn">올백 ✕</span>
+            <span class="tag-warn">정수리 볼륨 ✕</span>
+          </div>
+          <div class="salon-tip">💬 헤어샵에서: "아래쪽에 볼륨감 좀 주세요. 턱선 주변에 자연스럽게 볼륨이 생기는 방향으로요."</div>
+        </div>
+      </div>
+
+      <!-- 긴형 — face.png 6번째 열 → 100% -->
+      <div class="face-card">
+        <div class="face-card-header">
+          <div class="icon">📏</div>
+          <div>
+            <div class="name">긴 얼굴형 (타원형)</div>
+            <div class="sub">세로 길이 > 가로 넓이 / 이마가 넓거나 턱이 길어 보이는 편</div>
+          </div>
+        </div>
+        <div class="face-card-body">
+          <div class="face-img"><img src="../face_long.png" alt="긴 얼굴형" /></div>
+          <span class="face-goal">목표: 가로 넓이감을 만들어 얼굴이 짧아 보이게</span>
+          <div class="do-dont">
+            <div class="dont-item">❌ 정수리 볼륨 → 세로감 극대화 → 더 길어 보임</div>
+            <div class="do-item">✅ 귀 옆·광대 옆 볼륨 → 가로 넓이감 → 얼굴이 짧아 보임</div>
+          </div>
+          <div class="face-tips-title">셀프 스타일링 팁</div>
+          <ul class="checklist">
+            <li>드라이할 때 옆으로 퍼지게 볼륨 방향 잡기</li>
+            <li>정수리는 납작하게, 옆머리를 풍성하게</li>
+            <li>뱅 앞머리로 이마를 가려주면 더 효과적</li>
+          </ul>
+          <div class="face-tips-title">추천 스타일</div>
+          <div class="tag-row">
+            <span class="tag-rec">단발~쇄골 길이</span>
+            <span class="tag-rec">뱅 앞머리</span>
+            <span class="tag-rec">C컬·허그펌</span>
+            <span class="tag-warn">스트레이트 긴머리 ✕</span>
+            <span class="tag-warn">높은 정수리 볼륨 ✕</span>
+          </div>
+          <div class="salon-tip">💬 헤어샵에서: "옆에 볼륨 주는 방향으로 잘라주세요. 정수리 볼륨보다 옆 볼륨이 더 중요해요."</div>
+        </div>
+      </div>
+
+      <!-- 계란형 — face.png 1번째 열 → 0% -->
+      <div class="face-card">
+        <div class="face-card-header">
+          <div class="icon">🥚</div>
+          <div>
+            <div class="name">계란형 (황금 비율)</div>
+            <div class="sub">이마가 약간 넓고 턱으로 갈수록 자연스럽게 좁아지는 형태</div>
+          </div>
+        </div>
+        <div class="face-card-body">
+          <div class="face-img"><img src="../face_egg.png" alt="계란형 얼굴형" /></div>
+          <span class="face-goal">목표: 원하는 분위기에 따라 자유롭게 선택</span>
+          <div class="tbl-wrap" style="margin-top:12px;">
+            <table>
+              <tr><th>원하는 분위기</th><th>볼륨 위치</th></tr>
+              <tr><td>여성스럽고 우아한</td><td>전체 균형 잡힌 볼륨, C컬 마무리</td></tr>
+              <tr><td>세련되고 모던한</td><td>최소한의 볼륨, 깔끔하게 정돈</td></tr>
+              <tr><td>활동적이고 생기 있는</td><td>귀 위쪽 탄력감 있는 볼륨</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 5: SELF-STYLING STEPS -->
+  <section>
+    <div class="container">
+      <div class="sec-label">How To</div>
+      <h2 class="sec-title">10살 어려 보이는<br />셀프 드라이 순서</h2>
+      <p class="sec-desc">이 순서대로만 해도 볼륨 방향이 훨씬 정확하게 잡힙니다.</p>
+
+      <div class="formula-box">
+        <div class="f-label">Self Styling Formula</div>
+        <div class="f-eq">
+          <span>내 얼굴형 파악</span> →<br />
+          <strong>줄이고 싶은 부분 확인</strong> →<br />
+          <span>귀 위 / 아래 결정</span> →<br />
+          <strong>드라이로 고정</strong>
+        </div>
+      </div>
+
+      <div class="point-list">
+        <div class="point-item">
+          <div class="point-num">1</div>
+          <div class="point-content">
+            <div class="point-title">내 얼굴형 파악</div>
+            <div class="point-desc">머리를 뒤로 넘기고 이마·광대·턱 넓이와 세로/가로 비율을 확인하세요.</div>
+          </div>
+        </div>
+        <div class="point-item">
+          <div class="point-num">2</div>
+          <div class="point-content">
+            <div class="point-title">줄이고 싶은 부분에서 볼륨 피하기</div>
+            <div class="point-desc">그 부분에는 볼륨을 피하고, 반대 방향으로 드라이합니다.</div>
+          </div>
+        </div>
+        <div class="point-item">
+          <div class="point-num">3</div>
+          <div class="point-content">
+            <div class="point-title">귀를 기준으로 볼륨 위치 결정</div>
+            <div class="point-desc">귀 위쪽 볼륨인지, 아래쪽 볼륨인지 방향을 정한 뒤 드라이합니다.</div>
+          </div>
+        </div>
+        <div class="point-item">
+          <div class="point-num">4</div>
+          <div class="point-content">
+            <div class="point-title">찬 바람으로 마무리해 볼륨 고정</div>
+            <div class="point-desc">원하는 위치에 볼륨을 만든 후 찬 바람으로 큐티클을 닫아 모양을 고정합니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 6: CHECKLIST -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Checklist</div>
+      <h2 class="sec-title">헤어샵 가기 전<br />체크리스트</h2>
+      <p class="sec-desc">이걸 알고 가면 디자이너에게 훨씬 정확하게 전달할 수 있습니다.</p>
+
+      <div class="card">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-box"></div>내 얼굴형 파악했나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>줄이고 싶은 부분이 어딘지 알고 있나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>귀 위 / 아래 중 볼륨 위치 결정했나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>디자이너에게 볼륨 위치 구체적으로 말할 준비 됐나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>레퍼런스 사진 저장했나요?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 7: CLOSING + CTA -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Closing</div>
+      <h2 class="sec-title">마무리하며</h2>
+
+      <!-- 마무리 텍스트 | 프로필 카드 나란히 -->
+      <div style="display:grid; grid-template-columns:3fr 2fr; gap:16px; align-items:stretch; margin-bottom:20px;">
+
+        <!-- LEFT: 마무리하며 -->
+        <div class="closing" style="margin-bottom:0;">
+          <p>
+            볼륨 위치는 얼굴형을 바꾸는 것이 아니라<br />
+            <strong>시선을 조절하는 것</strong>입니다.<br /><br />
+            줄이고 싶은 부분에서 볼륨을 빼고,<br />
+            보완하고 싶은 부분에 볼륨을 더하면<br />
+            같은 얼굴도 훨씬 균형 있어 보입니다.
+          </p>
+          <div class="author-note">
+            현장 25년, 미용 교수 경험을 바탕으로<br />
+            앞으로도 실용적인 기준을 자료로 계속 정리해 드리겠습니다. 🙏
+          </div>
+        </div>
+
+        <!-- RIGHT: 프로필 카드 -->
+        <div style="background:var(--white); border-radius:var(--radius); padding:18px 16px; box-shadow:var(--shadow); display:flex; flex-direction:column; justify-content:center;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <div style="width:48px; height:48px; border-radius:50%; overflow:hidden; border:2px solid var(--purple-light); flex-shrink:0;">
+              <img src="../profile.png" style="width:100%; height:100%; object-fit:cover; object-position:center top;" alt="민경이즘 프로필" />
+            </div>
+            <div>
+              <div style="font-size:15px; font-weight:900; color:var(--text); margin-bottom:1px;">민경이즘</div>
+              <div style="font-size:11px; color:var(--purple); font-weight:600; line-height:1.4;">헤어디렉터 · 이미지컨설턴트 · 교수</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">🎓</span><span>겸임교수 · 강의 10년차</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">🔬</span><span>이학박사 · 향장생물학전공</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">📚</span><span>교육학석사 · 미용교육전공</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">✂️</span><span>MIN BEAUTY HAIR · 25년차</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">📖</span><span>저서 · 행복한성공수업</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 더 자세한 상담 — 전체 너비 -->
+      <p style="font-size:14px; font-weight:700; margin-bottom:16px; color:var(--text);">더 자세한 상담이 필요하시다면</p>
+      <div class="cta-links">
+        <a href="https://open.kakao.com/o/si1Fo8ai" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">💬</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">카카오 1:1 상담</div>
+            <div>얼굴형 · 이미지 맞춤 상담</div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+        <a href="https://open.kakao.com/o/svHTxrbi" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">✂️</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">민뷰티헤어 대치 샵</div>
+            <div>시술 상담 · 예약 바로가기</div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+        <a href="https://smartstore.naver.com/kyobobook/products/9170054197?NaPm=ct%3Dmqdk7duo%7Cci%3D2ad7c9f8100dfdbb996eb6bb89362d081750c6e0%7Ctr%3Dboknx%7Csn%3D172908%7Chk%3Dc3f09810d8ebd5ece1cd92cd2234ce0f2b0c1a95" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">📕</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">책 소개</div>
+            <div>행복한 성공수업 · 교보문고</div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+        <a href="https://form.naver.com/response/E9FpEOSa5QdCwW_n1JGsnA" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">🏢</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">기업 · 기관 외부 교육 문의</div>
+            <div>네이버 폼으로 문의하기</div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+        <a href="https://form.naver.com/response/mkPLwslRloX5F2r_s34MBA" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">🎓</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">1:1 컨설팅 · 교육 문의</div>
+            <div>네이버 폼으로 문의하기</div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 <strong>민경이즘</strong> · 무단 전재 및 재배포 금지</p>
+    <p style="margin-top:6px;">이 문서의 저작권은 '민경이즘'에 있습니다.</p>
+  </footer>
+
+</body>
+</html>
