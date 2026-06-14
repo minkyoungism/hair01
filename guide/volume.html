@@ -112,7 +112,13 @@
 
     /* ── COMPARE CARD ─────────────────────────────── */
     .compare-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-    @media (max-width: 500px) { .compare-wrap { grid-template-columns: 1fr; } }
+    @media (max-width: 540px) {
+      .compare-wrap { grid-template-columns: 1fr; }
+      .face-grid { grid-template-columns: 1fr; }
+      .face-card:last-child { max-width: 100%; }
+      .closing-profile-grid { grid-template-columns: 1fr !important; }
+      .todo-list { grid-template-columns: 1fr !important; }
+    }
 
     .compare-card { background: var(--white); border-radius: var(--radius); padding: 24px 20px; box-shadow: var(--shadow); }
     .compare-card .tag {
@@ -187,18 +193,19 @@
     }
 
     /* ── FACE SHAPE CARDS ─────────────────────────── */
+    .face-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .face-card {
       background: var(--white); border-radius: var(--radius);
-      overflow: hidden; box-shadow: var(--shadow); margin-bottom: 16px;
+      overflow: hidden; box-shadow: var(--shadow);
     }
     .face-card-header {
-      background: var(--purple); padding: 18px 22px;
-      display: flex; align-items: center; gap: 12px;
+      background: var(--purple); padding: 14px 16px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .face-card-header .icon { font-size: 22px; }
-    .face-card-header .name { font-size: 16px; font-weight: 800; color: #fff; }
-    .face-card-header .sub  { font-size: 12px; color: rgba(255,255,255,.7); }
-    .face-card-body { padding: 22px; }
+    .face-card-header .icon { font-size: 18px; }
+    .face-card-header .name { font-size: 14px; font-weight: 800; color: #fff; }
+    .face-card-header .sub  { font-size: 11px; color: rgba(255,255,255,.7); }
+    .face-card-body { padding: 16px; }
 
     /* 얼굴형별 개별 이미지 */
     .face-img {
@@ -285,21 +292,22 @@
     .closing .author-note { margin-top: 20px; font-size: 13px; color: var(--text-sub); font-style: italic; }
 
     /* ── CTA LINKS ────────────────────────────────── */
-    .cta-links { display: flex; flex-direction: column; gap: 12px; }
+    .cta-links { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
     .cta-btn {
-      display: flex; align-items: center; gap: 12px;
-      background: var(--white); border-radius: 14px; padding: 13px 18px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: 8px;
+      background: var(--white); border-radius: 14px; padding: 16px 12px;
       text-decoration: none; color: var(--text); box-shadow: var(--shadow);
-      font-size: 13px; font-weight: 600; transition: transform .15s, box-shadow .15s;
+      font-size: 12px; font-weight: 600; transition: transform .15s, box-shadow .15s;
     }
     .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(123,94,167,.18); }
     .cta-btn .icon-box {
-      width: 34px; height: 34px; border-radius: 10px;
+      width: 40px; height: 40px; border-radius: 12px;
       background: var(--purple-bg); color: var(--purple);
       display: flex; align-items: center; justify-content: center;
-      font-size: 16px; flex-shrink: 0;
+      font-size: 20px; flex-shrink: 0;
     }
-    .cta-btn .arrow { margin-left: auto; color: var(--purple-light); }
+    .cta-btn .arrow { display: none; }
 
     /* ── DIVIDER ──────────────────────────────────── */
     .divider {
@@ -357,7 +365,7 @@
   <section>
     <div class="container">
       <div class="sec-label">Overview</div>
-      <h2 class="sec-title">귀 위 볼륨 vs 귀 아래 볼륨,<br />동안과 노안이 결정됩니다</h2>
+      <h2 class="sec-title">귀 위 볼륨 vs 귀 아래 볼륨, 동안과 노안이 결정됩니다</h2>
       <p class="sec-desc">헤어샵에서 "어려보이게 해주세요"라고 했는데 결과가 달랐던 경험, 한 번쯤은 있으실 거예요.</p>
 
       <div class="guide-img">
@@ -401,8 +409,8 @@
   <section>
     <div class="container">
       <div class="sec-label">Core Principle</div>
-      <h2 class="sec-title">볼륨 위치가<br />10살을 바꿉니다</h2>
-      <p class="sec-desc">헤어 볼륨은 그 위치를 <strong>시각적으로 더 넓어 보이게</strong> 만듭니다.<br />줄이고 싶은 부분에 볼륨이 있으면 오히려 더 강조됩니다.</p>
+      <h2 class="sec-title">볼륨 위치가 10살을 바꿉니다</h2>
+      <p class="sec-desc">볼륨은 그 위치를 <strong>시각적으로 더 넓어 보이게</strong> 만듭니다. 줄이고 싶은 부분엔 볼륨을 빼세요.</p>
 
       <div class="guide-img">
         <img src="../vol3.png" style="width:100%; display:block; border-radius:12px;" alt="볼륨 위치만 바꿔도 10살 어려 보이는 법 인포그래픽" />
@@ -427,7 +435,7 @@
   <section>
     <div class="container">
       <div class="sec-label">Common Mistakes</div>
-      <h2 class="sec-title">나도 모르게 노안으로 만드는<br />볼륨 실수 TOP 3</h2>
+      <h2 class="sec-title">나도 모르게 노안으로 만드는 볼륨 실수 TOP 3</h2>
       <p class="sec-desc">어디서 무너지는지 알면, 개선 방향이 바로 보입니다.</p>
 
       <div class="prob-block">
@@ -496,6 +504,7 @@
       <h2 class="sec-title">얼굴형별 볼륨 위치 기준</h2>
       <p class="sec-desc">내 얼굴형에 맞는 볼륨 위치와 셀프 스타일링 팁을 정리했습니다.</p>
 
+      <div class="face-grid">
       <!-- 둥근형 — face.png 2번째 열 → 20% -->
       <div class="face-card">
         <div class="face-card-header">
@@ -632,8 +641,8 @@
         </div>
       </div>
 
-      <!-- 계란형 — face.png 1번째 열 → 0% -->
-      <div class="face-card">
+      <!-- 계란형 — 전체 너비 -->
+      <div class="face-card" style="grid-column:1/-1;">
         <div class="face-card-header">
           <div class="icon">🥚</div>
           <div>
@@ -641,38 +650,59 @@
             <div class="sub">이마가 약간 넓고 턱으로 갈수록 자연스럽게 좁아지는 형태</div>
           </div>
         </div>
-        <div class="face-card-body">
-          <div class="face-img"><img src="../face_egg.png" alt="계란형 얼굴형" /></div>
-          <span class="face-goal">목표: 원하는 분위기에 따라 자유롭게 선택</span>
-          <div class="tbl-wrap" style="margin-top:12px;">
-            <table>
-              <tr><th>원하는 분위기</th><th>볼륨 위치</th></tr>
-              <tr><td>여성스럽고 우아한</td><td>전체 균형 잡힌 볼륨, C컬 마무리</td></tr>
-              <tr><td>세련되고 모던한</td><td>최소한의 볼륨, 깔끔하게 정돈</td></tr>
-              <tr><td>활동적이고 생기 있는</td><td>귀 위쪽 탄력감 있는 볼륨</td></tr>
-            </table>
+        <div class="face-card-body" style="display:grid; grid-template-columns:1fr 2fr; gap:20px; align-items:start;">
+          <div class="face-img" style="margin-bottom:0;"><img src="../face_egg.png" alt="계란형 얼굴형" /></div>
+          <div>
+            <span class="face-goal">목표: 원하는 분위기에 따라 자유롭게 선택</span>
+            <div class="tbl-wrap" style="margin-top:12px;">
+              <table>
+                <tr><th>원하는 분위기</th><th>볼륨 위치</th></tr>
+                <tr><td>여성스럽고 우아한</td><td>전체 균형 잡힌 볼륨, C컬 마무리</td></tr>
+                <tr><td>세련되고 모던한</td><td>최소한의 볼륨, 깔끔하게 정돈</td></tr>
+                <tr><td>활동적이고 생기 있는</td><td>귀 위쪽 탄력감 있는 볼륨</td></tr>
+              </table>
+            </div>
           </div>
         </div>
+      </div>
+
+      </div><!-- /face-grid -->
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 5: CHECKLIST -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Checklist</div>
+      <h2 class="sec-title">헤어샵 가기 전 체크리스트</h2>
+      <div class="card">
+        <ul class="todo-list" style="display:grid; grid-template-columns:1fr 1fr; gap:8px 24px;">
+          <li class="todo-item"><div class="todo-box"></div>내 얼굴형 파악했나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>줄이고 싶은 부분 알고 있나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>귀 위 / 아래 볼륨 위치 결정했나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>디자이너에게 구체적으로 말할 준비 됐나요?</li>
+          <li class="todo-item" style="grid-column:1/-1;"><div class="todo-box"></div>레퍼런스 사진 저장했나요?</li>
+        </ul>
       </div>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- SECTION 5: SELF-STYLING STEPS -->
+  <!-- SECTION 6: SELF-STYLING STEPS -->
   <section>
     <div class="container">
       <div class="sec-label">How To</div>
-      <h2 class="sec-title">10살 어려 보이는<br />셀프 드라이 순서</h2>
+      <h2 class="sec-title">10살 어려 보이는 셀프 드라이 순서</h2>
       <p class="sec-desc">이 순서대로만 해도 볼륨 방향이 훨씬 정확하게 잡힙니다.</p>
 
       <div class="formula-box">
         <div class="f-label">Self Styling Formula</div>
         <div class="f-eq">
-          <span>내 얼굴형 파악</span> →<br />
-          <strong>줄이고 싶은 부분 확인</strong> →<br />
-          <span>귀 위 / 아래 결정</span> →<br />
-          <strong>드라이로 고정</strong>
+          <span>내 얼굴형 파악</span> → <strong>줄이고 싶은 부분 확인</strong> →<br />
+          <span>귀 위 / 아래 결정</span> → <strong>드라이로 고정</strong>
         </div>
       </div>
 
@@ -711,35 +741,14 @@
 
   <div class="divider"></div>
 
-  <!-- SECTION 6: CHECKLIST -->
-  <section>
-    <div class="container">
-      <div class="sec-label">Checklist</div>
-      <h2 class="sec-title">헤어샵 가기 전<br />체크리스트</h2>
-      <p class="sec-desc">이걸 알고 가면 디자이너에게 훨씬 정확하게 전달할 수 있습니다.</p>
-
-      <div class="card">
-        <ul class="todo-list">
-          <li class="todo-item"><div class="todo-box"></div>내 얼굴형 파악했나요?</li>
-          <li class="todo-item"><div class="todo-box"></div>줄이고 싶은 부분이 어딘지 알고 있나요?</li>
-          <li class="todo-item"><div class="todo-box"></div>귀 위 / 아래 중 볼륨 위치 결정했나요?</li>
-          <li class="todo-item"><div class="todo-box"></div>디자이너에게 볼륨 위치 구체적으로 말할 준비 됐나요?</li>
-          <li class="todo-item"><div class="todo-box"></div>레퍼런스 사진 저장했나요?</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- SECTION 7: CLOSING + CTA -->
+  <!-- SECTION 6: CLOSING + CTA -->
   <section>
     <div class="container">
       <div class="sec-label">Closing</div>
       <h2 class="sec-title">마무리하며</h2>
 
       <!-- 마무리 텍스트 | 프로필 카드 나란히 -->
-      <div style="display:grid; grid-template-columns:3fr 2fr; gap:16px; align-items:stretch; margin-bottom:20px;">
+      <div class="closing-profile-grid" style="display:grid; grid-template-columns:3fr 2fr; gap:16px; align-items:stretch; margin-bottom:20px;">
 
         <!-- LEFT: 마무리하며 -->
         <div class="closing" style="margin-bottom:0;">
@@ -794,24 +803,21 @@
         <a href="https://open.kakao.com/o/si1Fo8ai" target="_blank" rel="noopener" class="cta-btn">
           <div class="icon-box">💬</div>
           <div>
-            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">카카오 1:1 상담</div>
-            <div>얼굴형 · 이미지 맞춤 상담</div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">얼굴형 이미지 맞춤 1:1 상담</div>
           </div>
           <div class="arrow">→</div>
         </a>
         <a href="https://open.kakao.com/o/svHTxrbi" target="_blank" rel="noopener" class="cta-btn">
           <div class="icon-box">✂️</div>
           <div>
-            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">민뷰티헤어 대치 샵</div>
-            <div>시술 상담 · 예약 바로가기</div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">민뷰티헤어 대치 샵 예약</div>
           </div>
           <div class="arrow">→</div>
         </a>
         <a href="https://smartstore.naver.com/kyobobook/products/9170054197?NaPm=ct%3Dmqdk7duo%7Cci%3D2ad7c9f8100dfdbb996eb6bb89362d081750c6e0%7Ctr%3Dboknx%7Csn%3D172908%7Chk%3Dc3f09810d8ebd5ece1cd92cd2234ce0f2b0c1a95" target="_blank" rel="noopener" class="cta-btn">
           <div class="icon-box">📕</div>
           <div>
-            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">책 소개</div>
-            <div>행복한 성공수업 · 교보문고</div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">책 소개 · 행복한성공수업</div>
           </div>
           <div class="arrow">→</div>
         </a>
@@ -819,7 +825,6 @@
           <div class="icon-box">🏢</div>
           <div>
             <div style="font-size:13px; color:var(--text-sub); font-weight:400;">기업 · 기관 외부 교육 문의</div>
-            <div>네이버 폼으로 문의하기</div>
           </div>
           <div class="arrow">→</div>
         </a>
@@ -827,7 +832,6 @@
           <div class="icon-box">🎓</div>
           <div>
             <div style="font-size:13px; color:var(--text-sub); font-weight:400;">1:1 컨설팅 · 교육 문의</div>
-            <div>네이버 폼으로 문의하기</div>
           </div>
           <div class="arrow">→</div>
         </a>
