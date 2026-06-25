@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>민경이즘 · 얼굴형별 헤어 가이드</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* ── 트렌디 라벤더 팔레트 ── */
+      --p:      #A092CC;   /* 메인 퍼플 */
+      --pdark:  #7A67B2;   /* 강조 퍼플 */
+      --pmid:   #C2B8E0;   /* 미드톤 */
+      --plight: #EDE8F8;   /* 연한 배경 */
+      --paper:  #F6F3EF;   /* 종이 배경 */
+      --text:   #1A1A1A;
+      --sub:    #5C5C5C;
+      --muted:  #B0B0B0;
+      --line:   #E6E2DC;
+      --white:  #FFFFFF;
+
+      /* ── 레이아웃 ── */
+      --pad: 72px;          /* 외곽 여백 */
+      --gap: 28px;          /* 요소 간격 */
+      --handle-h: 88px;     /* 핸들 영역 */
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #CBC7C1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+      padding: 60px 40px;
+    }
+
+    /* ── 슬라이드 기본 ── */
+    .slide {
+      width: 1080px;
+      height: 1350px;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* 종이 질감 */
+    .slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* 핸들 — 모든 슬라이드 동일 위치 */
+    .handle {
+      position: absolute;
+      bottom: 44px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      z-index: 3;
+    }
+
+    /* 내부 콘텐츠 공통 wrapper */
+    .inner {
+      position: absolute;
+      top: var(--pad);
+      left: var(--pad);
+      right: var(--pad);
+      bottom: var(--handle-h);
+      display: flex;
+      flex-direction: column;
+      z-index: 3;
+    }
+
+    /* ── 슬라이드 번호 태그 ── */
+    .slide-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    .slide-tag .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--pmid);
+    }
+    .slide-tag .label {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--pmid);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── 이미지 placeholder ── */
+    .img-ph {
+      background: var(--plight);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .img-ph span {
+      font-size: 20px;
+      color: var(--pmid);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── 체크리스트 ── */
+    .checklist { display: flex; flex-direction: column; gap: 14px; }
+    .ci {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 25px;
+      color: var(--text);
+      line-height: 1.45;
+      font-weight: 400;
+    }
+    .ci .icon { font-size: 22px; font-weight: 900; flex-shrink: 0; margin-top: 2px; }
+    .ci .ok   { color: var(--p); }
+    .ci .no   { color: #C8C0C0; }
+    .divl { width: 100%; height: 1px; background: var(--line); margin: 4px 0; }
+
+    /* ── 번호 아이템 ── */
+    .num-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 22px 28px;
+    }
+    .num-badge {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--plight);
+      color: var(--pdark);
+      font-size: 20px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .num-text { font-size: 26px; font-weight: 500; color: var(--text); line-height: 1.4; }
+
+    /* ── 퍼플 배지 ── */
+    .p-badge {
+      background: var(--pdark);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 16px 36px;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── 얼굴형 태그 ── */
+    .face-tag {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--pdark);
+      background: var(--plight);
+      padding: 8px 22px;
+      border-radius: 100px;
+      display: inline-block;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ 01 표지 ═══════════ -->
+<div class="slide">
+  <div class="inner" style="align-items:center; justify-content:center; gap:0;">
+
+    <div class="slide-tag" style="margin-bottom:40px;">
+      <div class="dot"></div>
+      <div class="label">얼굴형별 헤어 가이드</div>
+    </div>
+
+    <div style="font-size:24px; font-weight:500; color:var(--sub); letter-spacing:0.04em; margin-bottom:20px; text-align:center;">
+      저장해두세요
+    </div>
+
+    <div style="font-size:90px; font-weight:900; color:var(--text); text-align:center; line-height:1.1; letter-spacing:-0.03em; margin-bottom:28px;">
+      내 얼굴형엔<br/>어떤 헤어가<br/>맞을까?
+    </div>
+
+    <div style="width:48px; height:4px; background:var(--p); border-radius:2px; margin-bottom:24px;"></div>
+
+    <div style="font-size:28px; font-weight:500; color:var(--sub); text-align:center;">
+      얼굴형별 핵심 정리
+    </div>
+
+  </div>
+  <div class="handle">25년차 현장 전문 미용교수 · @minkyoungism</div>
+</div>
+
+<!-- ═══════════ 02 자가진단 ═══════════ -->
+<div class="slide">
+  <div class="inner" style="gap:0;">
+
+    <div class="slide-tag" style="margin-bottom:36px;">
+      <div class="dot"></div>
+      <div class="label">STEP 01</div>
+    </div>
+
+    <div style="font-size:54px; font-weight:900; color:var(--text); line-height:1.15; letter-spacing:-0.02em; margin-bottom:12px;">
+      먼저 내 얼굴형부터<br/>확인하세요
+    </div>
+
+    <div style="font-size:25px; color:var(--sub); margin-bottom:48px; font-weight:400;">
+      머리를 뒤로 넘기고 거울 앞에 서서
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1;">
+      <div class="num-item">
+        <div class="num-badge">1</div>
+        <div class="num-text">이마 넓이를 확인하세요</div>
+      </div>
+      <div class="num-item">
+        <div class="num-badge">2</div>
+        <div class="num-text">광대 넓이를 확인하세요</div>
+      </div>
+      <div class="num-item">
+        <div class="num-badge">3</div>
+        <div class="num-text">턱 넓이와 라인을 확인하세요</div>
+      </div>
+      <div class="num-item">
+        <div class="num-badge">4</div>
+        <div class="num-text">세로 길이와 가로 넓이를 비교하세요</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="handle">@minkyoungism</div>
+</div>
+
+<!-- ═══════════ 03 둥근 얼굴형 ═══════════ -->
+<div class="slide">
+  <div class="inner" style="gap:0;">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;">
+      <div class="slide-tag"><div class="dot"></div><div class="label">얼굴형별 헤어 가이드</div></div>
+      <div class="face-tag">둥근 얼굴형</div>
+    </div>
+
+    <!-- 이미지 placeholder -->
+    <div class="img-ph" style="width:100%; height:620px; margin-bottom:32px;">
+      <span>이미지 삽입</span>
+    </div>
+
+    <!-- 체크리스트 -->
+    <div class="checklist">
+      <div class="ci"><span class="icon ok">✓</span><span>정수리 볼륨을 살려주세요</span></div>
+      <div class="ci"><span class="icon ok">✓</span><span>귀를 드러내면 훨씬 갸름해 보여요</span></div>
+      <div class="divl"></div>
+      <div class="ci"><span class="icon no">✗</span><span>귀 아래로 내려오는 볼륨</span></div>
+      <div class="ci"><span class="icon no">✗</span><span>양쪽으로 퍼지는 웨이브</span></div>
+    </div>
+
+  </div>
+  <div class="handle">@minkyoungism</div>
+</div>
+
+<!-- ═══════════ 04 각진 얼굴형 ═══════════ -->
+<div class="slide">
+  <div class="inner" style="gap:0;">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;">
+      <div class="slide-tag"><div class="dot"></div><div class="label">얼굴형별 헤어 가이드</div></div>
+      <div class="face-tag">각진 얼굴형</div>
+    </div>
+
+    <div class="img-ph" style="width:100%; height:620px; margin-bottom:32px;">
+      <span>이미지 삽입</span>
+    </div>
+
+    <div class="checklist">
+      <div class="ci"><span class="icon ok">✓</span><span>C컬·S컬로 각진 라인을 부드럽게</span></div>
+      <div class="ci"><span class="icon ok">✓</span><span>귀 위쪽 볼륨을 자연스럽게</span></div>
+      <div class="divl"></div>
+      <div class="ci"><span class="icon no">✗</span><span>하관을 덮는 무거운 볼륨</span></div>
+      <div class="ci"><span class="icon no">✗</span><span>턱선에서 딱 끊기는 직선 라인</span></div>
+    </div>
+
+  </div>
+  <div class="handle">@minkyoungism</div>
+</div>
+
+<!-- ═══════════ 05 긴 얼굴형 ═══════════ -->
+<div class="slide">
+  <div class="inner" style="gap:0;">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;">
+      <div class="slide-tag"><div class="dot"></div><div class="label">얼굴형별 헤어 가이드</div></div>
+      <div class="face-tag">긴 얼굴형</div>
+    </div>
+
+    <div class="img-ph" style="width:100%; height:620px; margin-bottom:32px;">
+      <span>이미지 삽입</span>
+    </div>
+
+    <div class="checklist">
+      <div class="ci"><span class="icon ok">✓</span><span>옆 볼륨을 살려주세요</span></div>
+      <div class="ci"><span class="icon ok">✓</span><span>앞머리로 이마를 가려주세요</span></div>
+      <div class="divl"></div>
+      <div class="ci"><span class="icon no">✗</span><span>정수리만 높이는 볼륨</span></div>
+      <div class="ci"><span class="icon no">✗</span><span>길게 늘어지는 직선 스타일</span></div>
+    </div>
+
+  </div>
+  <div class="handle">@minkyoungism</div>
+</div>
+
+<!-- ═══════════ 06 역삼각형 ═══════════ -->
+<div class="slide">
+  <div class="inner" style="gap:0;">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;">
+      <div class="slide-tag"><div class="dot"></div><div class="label">얼굴형별 헤어 가이드</div></div>
+      <div class="face-tag">역삼각형</div>
+    </div>
+
+    <div class="img-ph" style="width:100%; height:620px; margin-bottom:32px;">
+      <span>이미지 삽입</span>
+    </div>
+
+    <div class="checklist">
+      <div class="ci"><span class="icon ok">✓</span><span>턱선 주변 볼륨을 살려주세요</span></div>
+      <div class="ci"><span class="icon ok">✓</span><span>아래쪽에 무게감 있는 스타일</span></div>
+      <div class="divl"></div>
+      <div class="ci"><span class="icon no">✗</span><span>이마·광대 쪽 볼륨</span></div>
+      <div class="ci"><span class="icon no">✗</span><span>위쪽이 풍성한 스타일</span></div>
+    </div>
+
+  </div>
+  <div class="handle">@minkyoungism</div>
+</div>
+
+<!-- ═══════════ 07 계란형 ═══════════ -->
+<div class="slide">
+  <div class="inner" style="gap:0;">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;">
+      <div class="slide-tag"><div class="dot"></div><div class="label">얼굴형별 헤어 가이드</div></div>
+      <div class="face-tag">계란형</div>
+    </div>
+
+    <div class="img-ph" style="width:100%; height:620px; margin-bottom:32px;">
+      <span>이미지 삽입</span>
+    </div>
+
+    <div style="background:var(--white); border-radius:16px; padding:28px 32px;">
+      <div style="font-size:22px; font-weight:700; color:var(--pdark); margin-bottom:10px;">포인트</div>
+      <div style="font-size:26px; color:var(--text); line-height:1.6; font-weight:400;">
+        대부분의 헤어스타일이 잘 어울려요.<br/>원하는 분위기에 맞게 자유롭게 선택하세요.
+      </div>
+    </div>
+
+  </div>
+  <div class="handle">@minkyoungism</div>
+</div>
+
+<!-- ═══════════ 08 공통 실수 ═══════════ -->
+<div class="slide">
+  <div class="inner" style="gap:0;">
+
+    <div class="slide-tag" style="margin-bottom:36px;">
+      <div class="dot"></div>
+      <div class="label">공통 실수</div>
+    </div>
+
+    <div style="font-size:54px; font-weight:900; color:var(--text); line-height:1.15; letter-spacing:-0.02em; margin-bottom:12px;">
+      얼굴형 상관없이<br/>가장 많이 하는 실수
+    </div>
+    <div style="font-size:24px; color:var(--sub); margin-bottom:48px;">25년 현장에서 본 공통 패턴</div>
+
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1;">
+      <div class="num-item">
+        <div class="num-badge">1</div>
+        <div class="num-text">볼륨 위치를 신경 쓰지 않는 것</div>
+      </div>
+      <div class="num-item">
+        <div class="num-badge">2</div>
+        <div class="num-text">유행 스타일을 얼굴형 확인 없이 따라 하는 것</div>
+      </div>
+      <div class="num-item">
+        <div class="num-badge">3</div>
+        <div class="num-text">미용실에서 "알아서 해주세요" 하는 것</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="handle">@minkyoungism</div>
+</div>
+
+<!-- ═══════════ 09 미용실 말하기 ═══════════ -->
+<div class="slide">
+  <div class="inner" style="gap:0; justify-content:center;">
+
+    <div class="slide-tag" style="margin-bottom:48px;">
+      <div class="dot"></div>
+      <div class="label">미용실 소통 팁</div>
+    </div>
+
+    <div style="font-size:56px; font-weight:900; color:var(--text); line-height:1.15; letter-spacing:-0.02em; margin-bottom:48px; text-align:center;">
+      미용실 가기 전<br/>이렇게 말해보세요
+    </div>
+
+    <div style="background:var(--white); border-radius:20px; padding:44px 48px; border-left:5px solid var(--p);">
+      <div style="font-size:32px; font-weight:700; color:var(--pdark); line-height:1.6; margin-bottom:20px;">
+        "제 얼굴형이 OO형인데<br/>볼륨 위치 잡아주세요"
+      </div>
+      <div style="font-size:23px; color:var(--sub); line-height:1.7; font-weight:400;">
+        이 한 마디가 결과를 바꿔요.<br/>얼굴형을 먼저 말하면 디자이너가 훨씬<br/>정확하게 잡아드릴 수 있어요.
+      </div>
+    </div>
+
+  </div>
+  <div class="handle">@minkyoungism</div>
+</div>
+
+<!-- ═══════════ 10 CTA ═══════════ -->
+<div class="slide">
+  <div class="inner" style="align-items:center; justify-content:center; gap:0;">
+
+    <div style="font-size:26px; font-weight:500; color:var(--sub); text-align:center; margin-bottom:20px; letter-spacing:0.02em;">
+      라인, 볼륨, 질감의 조합이 분위기를 만들어요
+    </div>
+
+    <div style="font-size:60px; font-weight:900; color:var(--text); text-align:center; line-height:1.15; letter-spacing:-0.03em; margin-bottom:48px;">
+      내 얼굴형엔<br/>어떤 헤어가 맞을까요?
+    </div>
+
+    <div class="p-badge" style="width:100%; margin-bottom:20px;">
+      댓글에 "얼굴형" 남겨주세요
+    </div>
+
+    <div style="font-size:24px; color:var(--sub); text-align:center; margin-bottom:0;">
+      맞춤 정리본 보내드릴게요
+    </div>
+
+  </div>
+  <div class="handle">25년차 현장 전문 미용교수 · @minkyoungism</div>
+</div>
+
+</body>
+</html>

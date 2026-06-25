@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>단발 가이드 썸네일 | 민경이즘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple:       #8A78B8;
+      --purple-dark:  #6A58A0;
+      --purple-light: #A898D0;
+      --accent-pink:  #E8A3A3;
+      --text-dark:    #1C1C1C;
+      --text-sub:     #606060;
+      --white:        #FFFFFF;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #9E9990;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      padding: 60px 40px;
+    }
+
+    .page-label {
+      font-size: 20px;
+      color: #888;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      background: #fff;
+      padding: 12px 32px;
+      border-radius: 100px;
+    }
+
+    /* ════════════════════════════════════════════════════
+       THUMBNAIL 1 · 단발 변신의 비밀
+    ════════════════════════════════════════════════════ */
+    .thumb1 {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #F8F5FD 0%, #F0EBF9 40%, #FCF6F1 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    .thumb1-img-section {
+      position: relative;
+      width: 100%;
+      height: 550px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(138,120,184,0.1) 0%, transparent 100%);
+    }
+
+    .thumb1-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .thumb1-img-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #F0EBF9 0%, #E8E0F5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      color: var(--purple-light);
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .thumb1-content {
+      flex: 1;
+      padding: 60px 60px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .thumb1::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(138, 120, 184, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .thumb1::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      left: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(232, 163, 163, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hair-lines {
+      position: absolute;
+      top: 550px;
+      right: 20px;
+      width: 200px;
+      height: 300px;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hair-lines svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .t1-top {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .t1-badge {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 100px;
+      letter-spacing: -0.01em;
+    }
+
+    .t1-main-title {
+      font-size: 76px;
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      text-align: center;
+    }
+
+    .t1-main-title em {
+      color: var(--purple);
+      font-style: normal;
+    }
+
+    .t1-center {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+
+    /* 얼굴형 아이콘 표시 */
+    .face-shapes {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .face-icon {
+      width: 90px;
+      height: 110px;
+      background: var(--white);
+      border-radius: 50% 50% 45% 45%;
+      border: 3px solid var(--purple-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      box-shadow: 0 8px 24px rgba(138, 120, 184, 0.15);
+      transition: transform 0.3s;
+    }
+
+    .face-icon:nth-child(2) {
+      border-radius: 40% 40% 40% 40%;
+    }
+
+    .face-icon:nth-child(3) {
+      border-radius: 50% 50% 40% 40%;
+    }
+
+    .face-icon:nth-child(4) {
+      border-radius: 48% 48% 42% 42%;
+    }
+
+    .sub-message {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+
+    .sub-message .highlight {
+      background: linear-gradient(120deg, var(--accent-pink), var(--purple-light));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .t1-bottom {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .t1-cta {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--purple);
+      letter-spacing: -0.01em;
+    }
+
+    .t1-sub-text {
+      font-size: 18px;
+      color: var(--text-sub);
+      font-weight: 400;
+    }
+
+    /* ════════════════════════════════════════════════════
+       THUMBNAIL 2 · Before/After 강조
+    ════════════════════════════════════════════════════ */
+    .thumb2 {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #F5E8F0 0%, #FCF6F1 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    .thumb2::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle 400px at 80% 20%, rgba(138, 120, 184, 0.08), transparent 50%),
+        radial-gradient(circle 400px at 20% 80%, rgba(232, 163, 163, 0.06), transparent 50%);
+      pointer-events: none;
+    }
+
+    .thumb2-img-section {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thumb2-img-compare {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 0 40px;
+    }
+
+    .compare-img-box {
+      flex: 1;
+      height: 100%;
+      background: rgba(138, 120, 184, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .compare-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .compare-img-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--purple-light);
+      font-size: 18px;
+      font-weight: 500;
+      background: linear-gradient(135deg, rgba(240,235,249,0.5), rgba(248,245,253,0.5));
+    }
+
+    .thumb2-content {
+      flex: 1;
+      padding: 40px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .t2-top-accent {
+      font-size: 64px;
+      font-weight: 900;
+      color: var(--purple);
+      letter-spacing: -0.02em;
+    }
+
+    .t2-main {
+      font-size: 72px;
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1.3;
+      letter-spacing: -0.03em;
+    }
+
+    .t2-comparison {
+      display: flex;
+      gap: 28px;
+      margin: 24px 0;
+    }
+
+    .comparison-item {
+      background: var(--white);
+      padding: 24px 32px;
+      border-radius: 20px;
+      border: 2px solid var(--purple-light);
+      flex: 1;
+      box-shadow: 0 12px 32px rgba(138, 120, 184, 0.12);
+    }
+
+    .comparison-item .label {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .comparison-item .value {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .t2-cta {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent-pink);
+      margin-top: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    /* ════════════════════════════════════════════════════
+       THUMBNAIL 3 · 궁금증 유발
+    ════════════════════════════════════════════════════ */
+    .thumb3 {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #FFF5E8 0%, #F8F5FD 50%, #F0EBF9 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    .thumb3::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(138, 120, 184, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .thumb3-img-section {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thumb3-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .thumb3-img-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #FFF5E8 0%, #F8F5FD 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      color: var(--purple-light);
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .thumb3-content {
+      flex: 1;
+      padding: 40px 60px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      justify-content: center;
+    }
+
+    .t3-emoji {
+      font-size: 80px;
+      display: inline-block;
+    }
+
+    .t3-q-main {
+      font-size: 74px;
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1.25;
+      letter-spacing: -0.03em;
+    }
+
+    .t3-q-main .why {
+      color: var(--purple);
+    }
+
+    .t3-points {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .point {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      letter-spacing: -0.01em;
+    }
+
+    .point::before {
+      content: '✦';
+      color: var(--accent-pink);
+      font-size: 28px;
+    }
+
+    .t3-cta-box {
+      background: var(--white);
+      padding: 32px 48px;
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(138, 120, 184, 0.15);
+      margin-top: 20px;
+    }
+
+    .t3-cta-text {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--purple);
+      letter-spacing: -0.01em;
+    }
+
+    /* ════════════════════════════════════════════════════
+       MOBILE RESPONSIVE
+    ════════════════════════════════════════════════════ */
+    @media (max-width: 1200px) {
+      .thumb1, .thumb2, .thumb3 {
+        width: 90vw;
+        height: auto;
+      }
+
+      .t1-main-title {
+        font-size: 56px;
+      }
+
+      .sub-message {
+        font-size: 24px;
+      }
+
+      .t2-main {
+        font-size: 52px;
+      }
+
+      .t3-q-main {
+        font-size: 54px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-label">THUMBNAIL DESIGNS</div>
+
+  <!-- ════════════════════════════════════════════════════
+       썸네일 1 · "단발은 얼굴형별로 이렇게 달라진다"
+       전략: 얼굴형 4가지 강조 + 호기심 유발
+  ════════════════════════════════════════════════════ -->
+  <div class="thumb1">
+    <div class="thumb1-img-section">
+      <img class="thumb1-img" id="thumb1Img" style="display:none;" alt="단발 이미지" />
+      <div class="thumb1-img-placeholder" id="thumb1Placeholder">
+        <span>📸</span>
+        <span>단발 사진을 넣어주세요</span>
+      </div>
+    </div>
+
+    <div class="thumb1-content">
+      <svg class="hair-lines" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <path d="M150 20 Q180 60 180 120 M150 20 Q120 60 120 120 M180 120 Q190 180 170 300" 
+              stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+        <path d="M120 120 Q100 180 110 300 M150 50 Q160 120 150 280" 
+              stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.2"/>
+      </svg>
+
+      <div class="t1-top">
+        <span class="t1-badge">🎬 영상 필독 가이드</span>
+        <h1 class="t1-main-title">
+          단발은<br>얼굴형별로<br><em>완전히 달라진다</em>
+        </h1>
+      </div>
+
+      <div class="t1-center">
+        <div class="face-shapes">
+          <div class="face-icon">🥚</div>
+          <div class="face-icon">⭕</div>
+          <div class="face-icon">△</div>
+          <div class="face-icon">◇</div>
+        </div>
+
+        <div class="sub-message">
+          <span class="highlight">같은 단발이</span> 누구는 예쁘고<br>누구는 어울리지 않는 이유
+        </div>
+      </div>
+
+      <div class="t1-bottom">
+        <div class="t1-cta">지금 확인하기</div>
+        <div class="t1-sub-text">당신의 얼굴형에 맞는 완벽한 단발 찾기</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════
+       썸네일 2 · "Before/After" 임팩트
+       전략: 변신 효과 강조 + 수치화
+  ════════════════════════════════════════════════════ -->
+  <div class="thumb2">
+    <div class="t2-content">
+      <div class="t2-top-accent">✨ 단발 변신의 비밀</div>
+
+      <h1 class="t2-main">
+        같은 길이인데<br>왜 이렇게<br>다를까?
+      </h1>
+
+      <div class="t2-comparison">
+        <div class="comparison-item">
+          <div class="label">틀린 단발</div>
+          <div class="value">둥글어 보임</div>
+        </div>
+        <div class="comparison-item">
+          <div class="label">맞는 단발</div>
+          <div class="value">세련되어 보임</div>
+        </div>
+      </div>
+
+      <div class="t2-cta">
+        🔥 단 3가지 요소가 결정한다
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════
+       썸네일 3 · "질문형" 후킹
+       전략: 궁금증 극대화 + 해답 제시
+  ════════════════════════════════════════════════════ -->
+  <div class="thumb3">
+    <div class="t3-question">
+      <div class="t3-emoji">🤔</div>
+
+      <h1 class="t3-q-main">
+        <span class="why">왜</span> 당신의 단발은<br>어울리지 않을까?
+      </h1>
+
+      <div class="t3-points">
+        <div class="point">볼륨 위치가 틀렸거나</div>
+        <div class="point">라인 방향이 맞지 않거나</div>
+        <div class="point">질감 무게감이 어울리지 않았을 가능성</div>
+      </div>
+
+      <div class="t3-cta-box">
+        <div class="t3-cta-text">
+          🎥 영상에서 답을 찾다
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
