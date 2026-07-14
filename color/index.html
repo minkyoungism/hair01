@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>염색 후 색 오래 유지하는 법 | 민경이즘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple:      #7B5EA7;
+      --purple-light:#A78BCC;
+      --purple-bg:   #EDE8F7;
+      --purple-pale: #F5F1FB;
+      --beige:       #FAF7F4;
+      --beige-dark:  #F0EAE2;
+      --text:        #2D2D2D;
+      --text-sub:    #666;
+      --white:       #FFFFFF;
+      --shadow:      0 4px 20px rgba(123,94,167,.12);
+      --radius:      18px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--beige);
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(145deg, #ede8f7 0%, #f5f0fb 50%, #faf7f4 100%);
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123,94,167,.08) 0%, transparent 70%);
+      top: -100px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      font-size: 12px; font-weight: 600; letter-spacing: .08em;
+      padding: 5px 16px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 42px);
+      font-weight: 900; line-height: 1.3; color: var(--text); margin-bottom: 12px;
+    }
+    .hero h1 em { color: var(--purple); font-style: normal; }
+    .hero .sub { font-size: 15px; color: var(--text-sub); margin-bottom: 32px; }
+
+    .author-chip {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--white); border-radius: 100px;
+      padding: 10px 20px; box-shadow: var(--shadow);
+      font-size: 14px; font-weight: 500;
+    }
+    .author-chip .dot {
+      width: 44px; height: 44px; border-radius: 50%;
+      overflow: hidden; border: 2px solid var(--purple-light); flex-shrink: 0;
+    }
+    .author-chip .dot img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+    .hero-links {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 20px;
+    }
+    .hero-link-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #fff; border-radius: 100px; padding: 9px 18px;
+      text-decoration: none; color: #2D2D2D;
+      box-shadow: 0 4px 20px rgba(123,94,167,.12);
+      font-size: 13px; font-weight: 600;
+      transition: transform .15s, box-shadow .15s; white-space: nowrap;
+    }
+    .hero-link-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(123,94,167,.2); }
+
+    /* ── LAYOUT ───────────────────────────────────── */
+    .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 56px 0 0; }
+    section:last-of-type { padding-bottom: 80px; }
+
+    /* ── SECTION TITLE ────────────────────────────── */
+    .sec-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      color: var(--purple); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .sec-label::before {
+      content: ''; display: block; width: 18px; height: 2px;
+      background: var(--purple); border-radius: 2px;
+    }
+    .sec-title { font-size: clamp(20px, 3.5vw, 28px); font-weight: 800; line-height: 1.4; margin-bottom: 6px; }
+    .sec-desc  { font-size: 14px; color: var(--text-sub); margin-bottom: 32px; }
+
+    /* ── CARD ─────────────────────────────────────── */
+    .card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 28px; box-shadow: var(--shadow); margin-bottom: 16px;
+    }
+
+    /* ── COMPARE CARD ─────────────────────────────── */
+    .compare-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (max-width: 540px) {
+      .compare-wrap { grid-template-columns: 1fr; }
+      .closing-profile-grid { grid-template-columns: 1fr !important; }
+    }
+
+    .compare-card { background: var(--white); border-radius: var(--radius); padding: 24px 20px; box-shadow: var(--shadow); }
+    .compare-card .tag {
+      display: inline-block; font-size: 12px; font-weight: 700;
+      padding: 4px 14px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .compare-card.bad  .tag { background: #e8e8e8; color: #555; }
+    .compare-card.good .tag { background: var(--purple); color: #fff; }
+    .compare-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .compare-card li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; font-weight: 500; }
+    .compare-card li .icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0; margin-top: 1px;
+    }
+    .compare-card.bad  li .icon { background: #f0f0f0; color: #999; }
+    .compare-card.good li .icon { background: var(--purple-bg); color: var(--purple); }
+
+    /* ── TARGET LIST ──────────────────────────────── */
+    .target-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .target-item {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--purple-pale); border-radius: 12px;
+      padding: 14px 18px; font-size: 14px; font-weight: 500;
+    }
+    .target-item .num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+
+    /* ── PROBLEM BLOCK ────────────────────────────── */
+    .prob-block {
+      background: var(--white); border-radius: var(--radius);
+      padding: 28px; box-shadow: var(--shadow); margin-bottom: 20px;
+    }
+    .prob-block .prob-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .prob-block .step-badge {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; flex-shrink: 0;
+    }
+    .prob-block .prob-title { font-size: 17px; font-weight: 800; }
+    .prob-block .prob-sub   { font-size: 13px; color: var(--text-sub); }
+
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .checklist li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 14px; padding: 12px 14px;
+      background: var(--beige); border-radius: 10px;
+    }
+    .checklist li::before {
+      content: '✓'; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--purple-bg); color: var(--purple);
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    .summary-quote {
+      background: var(--purple-bg); border-left: 4px solid var(--purple);
+      border-radius: 0 12px 12px 0; padding: 14px 18px;
+      font-size: 14px; font-weight: 700; color: var(--purple);
+    }
+
+    /* ── POINT LIST ───────────────────────────────── */
+    .point-list { display: flex; flex-direction: column; gap: 12px; }
+    .point-item {
+      background: var(--white); border-radius: 14px; padding: 20px;
+      box-shadow: var(--shadow); display: flex; gap: 16px; align-items: flex-start;
+    }
+    .point-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--purple-bg); color: var(--purple);
+      font-size: 14px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .point-content .point-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .point-content .point-desc  { font-size: 13px; color: var(--text-sub); }
+
+    /* ── FORMULA BOX ──────────────────────────────── */
+    .formula-box {
+      background: var(--purple); border-radius: var(--radius);
+      padding: 32px 28px; color: #fff; text-align: center; margin-bottom: 24px;
+    }
+    .formula-box .f-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .15em;
+      text-transform: uppercase; opacity: .75; margin-bottom: 14px;
+    }
+    .formula-box .f-eq { font-size: clamp(15px, 3vw, 18px); font-weight: 800; line-height: 2; }
+    .formula-box .f-eq span { opacity: .65; font-size: .85em; }
+
+    /* ── TODO LIST ────────────────────────────────── */
+    .todo-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .todo-item {
+      display: flex; gap: 12px; align-items: center;
+      font-size: 14px; padding: 12px 14px;
+      background: var(--beige); border-radius: 10px;
+    }
+    .todo-box { width: 18px; height: 18px; border: 2px solid var(--purple-light); border-radius: 5px; flex-shrink: 0; }
+
+    /* ── CLOSING ──────────────────────────────────── */
+    .closing {
+      background: linear-gradient(145deg, #ede8f7, #faf7f4);
+      border-radius: var(--radius); padding: 36px 28px; text-align: center;
+      margin-bottom: 28px; box-shadow: var(--shadow);
+    }
+    .closing p { font-size: 15px; font-weight: 500; line-height: 1.9; color: var(--text); }
+    .closing .author-note { margin-top: 20px; font-size: 13px; color: var(--text-sub); font-style: italic; }
+
+    /* ── CTA LINKS ────────────────────────────────── */
+    .cta-links { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .cta-btn {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: 8px;
+      background: var(--white); border-radius: 14px; padding: 16px 12px;
+      text-decoration: none; color: var(--text); box-shadow: var(--shadow);
+      font-size: 12px; font-weight: 600; transition: transform .15s, box-shadow .15s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(123,94,167,.18); }
+    .cta-btn .icon-box {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--purple-bg); color: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+
+    /* ── DIVIDER ──────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--beige-dark), transparent);
+      margin: 40px 0 0;
+    }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      text-align: center; padding: 32px 24px;
+      font-size: 12px; color: #aaa;
+      background: var(--white); margin-top: 56px;
+    }
+    footer strong { color: var(--purple); }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">COLOR CARE GUIDE</div>
+    <h1>염색 후 색이 금방 빠진다면<br /><em>이 4가지 습관 때문입니다</em></h1>
+    <p class="sub">25년 현장 경험으로 정리한 컬러 오래 유지하는 법</p>
+    <div style="margin-bottom:28px;">
+      <img src="image/278dcdc8-a0a5-438e-8b39-8191014777b6.png" alt="염색 후 헤어케어" style="width:300px; height:260px; border-radius:16px; box-shadow:var(--shadow); object-fit:cover; object-position:center 25%;" />
+    </div>
+    <div class="author-chip">
+      <div class="dot">
+        <img src="../profile.png" alt="민경이즘 프로필" />
+      </div>
+      <span>25년차 현장 전문 미용교수 · <strong>민경이즘</strong></span>
+    </div>
+    <div class="hero-links">
+      <a href="https://www.instagram.com/minkyoungism" target="_blank" rel="noopener" class="hero-link-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/>
+            <stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/>
+            <stop offset="100%" stop-color="#bc1888"/>
+          </linearGradient></defs>
+          <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#ig)"/>
+          <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none"/>
+          <circle cx="17.2" cy="6.8" r="1.2" fill="white"/>
+        </svg>
+        인스타그램
+      </a>
+      <a href="https://www.youtube.com/@minkyoungism" target="_blank" rel="noopener" class="hero-link-btn">▶️ 유튜브</a>
+      <a href="https://blog.naver.com/minkyoungism" target="_blank" rel="noopener" class="hero-link-btn">📝 블로그</a>
+      <a href="https://www.tiktok.com/@minkyoungism" target="_blank" rel="noopener" class="hero-link-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.87a8.2 8.2 0 004.8 1.54V7a4.85 4.85 0 01-1.03-.31z"/></svg>
+        틱톡
+      </a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Overview</div>
+      <h2 class="sec-title">염색했는데 색이 금방 빠진 경험, 있으신가요?</h2>
+      <p class="sec-desc">원인은 염색약이 아니라 <strong>관리 습관</strong>에 있는 경우가 대부분입니다.</p>
+
+      <img src="image/a6267540-06ef-4b8d-8ac0-70a88f53625d.png" alt="염색 후 헤어케어" style="width:100%; border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:20px; object-fit:cover; max-height:360px;" />
+
+      <div class="compare-wrap">
+        <div class="compare-card bad">
+          <span class="tag">색이 빨리 빠지는 습관</span>
+          <ul>
+            <li><span class="icon">✕</span>염색 당일 바로 샴푸하기</li>
+            <li><span class="icon">✕</span>뜨거운 물로 헹구기</li>
+            <li><span class="icon">✕</span>일반 샴푸만 계속 쓰기</li>
+            <li><span class="icon">✕</span>자외선 차단 안 하기</li>
+          </ul>
+        </div>
+        <div class="compare-card good">
+          <span class="tag">색이 오래 사는 습관</span>
+          <ul>
+            <li><span class="icon">✓</span>24시간 후 샴푸하기</li>
+            <li><span class="icon">✓</span>미온수로 헹구기</li>
+            <li><span class="icon">✓</span>염색 전용 샴푸 사용하기</li>
+            <li><span class="icon">✓</span>외출 시 자외선 차단하기</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <p style="font-size:14px; font-weight:600; margin-bottom:12px; color:var(--purple)">이런 분께 특히 도움이 됩니다</p>
+        <div class="target-list">
+          <div class="target-item"><div class="num">1</div>염색만 하면 색이 금방 빠지는 분</div>
+          <div class="target-item"><div class="num">2</div>염색 후 관리를 어떻게 해야 할지 모르는 분</div>
+          <div class="target-item"><div class="num">3</div>비싼 염색약을 썼는데 효과를 못 보는 분</div>
+          <div class="target-item"><div class="num">4</div>컬러를 오래 유지하는 관리 기준을 알고 싶은 분</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 2: 4 MISTAKES -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Common Mistakes</div>
+      <h2 class="sec-title">색을 망치는 4가지 습관</h2>
+      <p class="sec-desc">무심코 하는 이 습관들이 컬러를 빠르게 바래게 만듭니다.</p>
+
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">1</div>
+          <div>
+            <div class="prob-title">염색 당일 바로 샴푸하는 것</div>
+            <div class="prob-sub">가장 많이 하는 실수입니다</div>
+          </div>
+        </div>
+        <img src="image/그림1.png" alt="염색 당일 샴푸 금지" style="width:100%; border-radius:12px; margin-bottom:16px;" />
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          염색 직후에는 모발 큐티클이 완전히 닫히지 않은 상태입니다. 이때 바로 샴푸를 하면 색소가 미처 자리 잡기도 전에 씻겨 나갑니다.
+        </p>
+        <ul class="checklist">
+          <li>최소 24시간은 샴푸를 미루기</li>
+          <li>급하면 물로만 살짝 헹구는 정도로 그치기</li>
+        </ul>
+        <div class="summary-quote">염색 후 24시간만 참으면 색이 훨씬 오래 갑니다</div>
+      </div>
+
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">2</div>
+          <div>
+            <div class="prob-title">뜨거운 물로 감는 것</div>
+            <div class="prob-sub">헹굼 온도가 색 유지력을 좌우합니다</div>
+          </div>
+        </div>
+        <img src="image/그림2.png" alt="미온수로 헹구기" style="width:100%; border-radius:12px; margin-bottom:16px;" />
+        <div style="display:flex; gap:12px; margin-bottom:16px;">
+          <img src="image/그림5.png" alt="뜨거운 물 X" style="width:50%; border-radius:12px;" />
+          <img src="image/그림6.png" alt="미온수 O" style="width:50%; border-radius:12px;" />
+        </div>
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          뜨거운 물은 큐티클을 더 크게 열어버립니다. 큐티클이 열린 채로 반복해서 감으면 색소가 그만큼 더 빨리 빠져나갑니다.
+        </p>
+        <ul class="checklist">
+          <li>헹굴 때는 반드시 미온수 사용하기</li>
+          <li>마지막 헹굼은 차갑게 마무리하면 더 좋음</li>
+        </ul>
+        <div class="summary-quote">미온수로 감아야 큐티클 자극이 줄고 색이 삽니다</div>
+      </div>
+
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">3</div>
+          <div>
+            <div class="prob-title">일반 샴푸만 계속 쓰는 것</div>
+            <div class="prob-sub">세정력이 색소까지 씻어냅니다</div>
+          </div>
+        </div>
+        <img src="image/f2fad0ef-cd3e-4712-8ae5-5f481dfe021a.png" alt="일반 샴푸 vs 염색 전용 샴푸" style="width:100%; border-radius:12px; margin-bottom:16px;" />
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          일반 샴푸는 세정력이 강해서 색소까지 함께 씻어냅니다. 염색모용 성분이 없으면 색이 빠지는 속도를 잡아줄 수 없습니다.
+        </p>
+        <ul class="checklist">
+          <li>염색 전용 샴푸로 바꿔서 사용하기</li>
+          <li>주 1~2회 컬러 트리트먼트 병행하면 더 좋음</li>
+        </ul>
+        <div class="summary-quote">전용 샴푸 하나만 바꿔도 유지력이 확 달라집니다</div>
+      </div>
+
+      <div class="prob-block">
+        <div class="prob-header">
+          <div class="step-badge">4</div>
+          <div>
+            <div class="prob-title">자외선 차단을 하지 않는 것</div>
+            <div class="prob-sub">햇빛이 색을 가장 빨리 바래게 합니다</div>
+          </div>
+        </div>
+        <img src="image/그림7.png" alt="자외선 차단하기" style="width:100%; border-radius:12px; margin-bottom:16px;" />
+        <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px;">
+          햇빛은 색을 가장 빨리 바래게 만드는 원인입니다. 자외선에 그대로 노출되면 아무리 관리를 잘해도 색이 금방 탁해집니다.
+        </p>
+        <ul class="checklist">
+          <li>외출 시 모발용 자외선 차단 제품 사용하기</li>
+          <li>장시간 야외 활동 시 모자나 양산으로 가려주기</li>
+        </ul>
+        <div class="summary-quote">자외선 차단 하나로 컬러의 수명이 달라집니다</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 3: HOW TO -->
+  <section>
+    <div class="container">
+      <div class="sec-label">How To</div>
+      <h2 class="sec-title">색 오래 유지하는 올바른 순서</h2>
+      <p class="sec-desc">이 순서대로만 해도 컬러가 훨씬 오래 갑니다.</p>
+
+      <div class="formula-box">
+        <div class="f-label">Color Care Formula</div>
+        <div class="f-eq">
+          <span>24시간 후 샴푸</span> → <strong>미온수로 헹구기</strong> →<br />
+          <span>염색 전용 샴푸</span> → <strong>자외선 차단</strong>
+        </div>
+      </div>
+
+      <div class="point-list">
+        <div class="point-item">
+          <div class="point-num">1</div>
+          <div class="point-content">
+            <div class="point-title">샴푸는 24시간 후에</div>
+            <div class="point-desc">염색 당일은 참아주세요. 하루만 지나도 색소 고정력이 훨씬 좋아집니다.</div>
+          </div>
+        </div>
+        <div class="point-item">
+          <div class="point-num">2</div>
+          <div class="point-content">
+            <div class="point-title">헹굼은 미온수로</div>
+            <div class="point-desc">뜨거운 물 대신 미지근한 물로 헹궈 큐티클 자극을 최소화합니다.</div>
+          </div>
+        </div>
+        <div class="point-item">
+          <div class="point-num">3</div>
+          <div class="point-content">
+            <div class="point-title">염색 전용 샴푸 사용하기</div>
+            <div class="point-desc">세정력 대신 색 보호 성분이 들어간 전용 샴푸로 바꿔줍니다.</div>
+          </div>
+        </div>
+        <div class="point-item">
+          <div class="point-num">4</div>
+          <div class="point-content">
+            <div class="point-title">외출 시 자외선 차단</div>
+            <div class="point-desc">모발용 UV 제품을 챙기거나 모자로 가려 색이 바래는 것을 막아줍니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 4: CHECKLIST -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Checklist</div>
+      <h2 class="sec-title">염색 후 관리 체크리스트</h2>
+      <div class="card">
+        <img src="image/36fb81ed-aa32-410f-ae0f-3392baf44039.png" alt="염색 후 색 오래 유지하는 법 요약" style="width:100%; border-radius:12px; margin-bottom:20px;" />
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-box"></div>염색 후 24시간 지나서 샴푸했나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>미온수로 헹구고 있나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>염색 전용 샴푸를 사용하고 있나요?</li>
+          <li class="todo-item"><div class="todo-box"></div>외출 시 자외선 차단을 챙기고 있나요?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 5: CLOSING -->
+  <section>
+    <div class="container">
+      <div class="sec-label">Closing</div>
+      <h2 class="sec-title">마무리하며</h2>
+
+      <div class="closing-profile-grid" style="display:grid; grid-template-columns:3fr 2fr; gap:16px; align-items:stretch; margin-bottom:20px;">
+        <div class="closing" style="margin-bottom:0;">
+          <p>
+            염색은 컬러를 입히는 순간보다<br />
+            <strong>그 이후 관리가 더 중요합니다.</strong><br /><br />
+            네 가지 습관만 바꿔도<br />
+            컬러 유지 기간이 확실히 달라집니다.
+          </p>
+          <div class="author-note">
+            현장 25년, 미용 교수 경험을 바탕으로<br />
+            앞으로도 실용적인 기준을 자료로 계속 정리해 드리겠습니다. 🙏
+          </div>
+        </div>
+
+        <div style="background:var(--white); border-radius:var(--radius); padding:18px 16px; box-shadow:var(--shadow); display:flex; flex-direction:column; justify-content:center;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <div style="width:48px; height:48px; border-radius:50%; overflow:hidden; border:2px solid var(--purple-light); flex-shrink:0;">
+              <img src="../profile.png" style="width:100%; height:100%; object-fit:cover; object-position:center top;" alt="민경이즘 프로필" />
+            </div>
+            <div>
+              <div style="font-size:15px; font-weight:900; color:var(--text); margin-bottom:1px;">민경이즘</div>
+              <div style="font-size:11px; color:var(--purple); font-weight:600; line-height:1.4;">헤어디렉터 · 이미지컨설턴트 · 교수</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">🎓</span><span>겸임교수 · 강의 10년차</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">🔬</span><span>이학박사 · 향장생물학전공</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">📚</span><span>교육학석사 · 미용교육전공</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">✂️</span><span>MIN BEAUTY HAIR · 25년차</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:flex-start; font-size:11px; color:var(--text-sub); line-height:1.5;">
+              <span style="flex-shrink:0;">📖</span><span>저서 · 행복한성공수업</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; margin-bottom:16px; color:var(--text);">더 자세한 상담이 필요하시다면</p>
+      <div class="cta-links">
+        <a href="https://open.kakao.com/o/si1Fo8ai" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">💬</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">얼굴형 이미지 맞춤 1:1 상담</div>
+          </div>
+        </a>
+        <a href="https://open.kakao.com/o/svHTxrbi" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">✂️</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">민뷰티헤어 대치 샵 예약</div>
+          </div>
+        </a>
+        <a href="https://smartstore.naver.com/kyobobook/products/9170054197?NaPm=ct%3Dmqdk7duo%7Cci%3D2ad7c9f8100dfdbb996eb6bb89362d081750c6e0%7Ctr%3Dboknx%7Csn%3D172908%7Chk%3Dc3f09810d8ebd5ece1cd92cd2234ce0f2b0c1a95" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">📕</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">책 소개 · 행복한성공수업</div>
+          </div>
+        </a>
+        <a href="https://form.naver.com/response/E9FpEOSa5QdCwW_n1JGsnA" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">🏢</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">기업 · 기관 외부 교육 문의</div>
+          </div>
+        </a>
+        <a href="https://form.naver.com/response/mkPLwslRloX5F2r_s34MBA" target="_blank" rel="noopener" class="cta-btn">
+          <div class="icon-box">🎓</div>
+          <div>
+            <div style="font-size:13px; color:var(--text-sub); font-weight:400;">1:1 컨설팅 · 교육 문의</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 <strong>민경이즘</strong> · 무단 전재 및 재배포 금지</p>
+    <p style="margin-top:6px;">이 문서의 저작권은 '민경이즘'에 있습니다.</p>
+  </footer>
+
+</body>
+</html>
